@@ -1,0 +1,37 @@
+<p>
+  Pourquoi c'est bien de devenir vendeur
+</p>
+
+
+
+<div class="col-md-6 col-md-offset-3">
+    <div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" class="form-control" name="email" [(ngModel)]="email.value" />
+            <div [hidden]="!email.errors.required">
+              Veuillez saisir votre adresse email
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Mot de passe</label>
+            <input type="password" class="form-control" name="password" [(ngModel)]="password.value"/>
+            <div [hidden]="!password.errors.required">
+              Veuillez saisir un mot de passe
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="boutique">Nom de votre boutique</label>
+            <input type="text" class="form-control" name="boutique" [(ngModel)]="boutique.value" />
+            <div [hidden]="!boutique.errors.required">
+              Veuillez saisir un nom de boutique
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button [disabled]="loading" (click)="devenirVendeur()" class="btn btn-primary">Devenir vendeur</button>
+        </div>
+    </div>
+</div>
