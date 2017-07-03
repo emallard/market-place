@@ -1,5 +1,9 @@
 import * as express from 'express';
 import * as ExpressSession from 'express-session';
+const MongoStore = require('connect-mongo')(ExpressSession);
+import config = require('./config');
+
+
 import path = require("path");
 import logger = require("morgan");
 import bodyParser = require("body-parser");
@@ -9,82 +13,99 @@ import { Persistance } from "./db/Persistance";
 import { RegisterControllers } from "./registerControllers";
 import { Utilisateur } from "./_model/Utilisateur";
 
-Persistance.singleton();
+
 let app = express();
+export = app;
+
+(async function() {
+    await Persistance.singleton().init();
+
+    if (app.get("env") === "development") {
+        app.use(logger("dev"));
+    }
+
+    var corsOptions = {
+    origin: 'http://localhost:4200',
+    credentials:true,
+    }
 
 
-if (app.get("env") === "development") {
-    app.use(logger("dev"));
-}
-
-var corsOptions = {
-  origin: 'http://localhost:4200',
-  credentials:true,
-}
+    app.use(cors(corsOptions));
+    //app.use(bodyParser.raw({limit: 2000000, type:(req)=>true}));
+    //app.use(cookieParser());
 
 
-app.use(cors(corsOptions));
-//app.use(bodyParser.raw({limit: 2000000, type:(req)=>true}));
-//app.use(cookieParser());
+    app.use(function(req, res, next) {
+        console.log('---------------');
+        console.log(req.headers);
+        console.log('---------------'); 
+        next();
+    })
+
+    app.use(ExpressSession({
+        secret: 'keyboard cat',
+        resave: true,
+        saveUninitialized: true,
+        store : new MongoStore({db: Persistance.mongodb()})
+    }));
+
+    app.use(function(req, res, next) {
+        console.log('--- session log');
+        console.log(req.session);
+        console.log('---------------');
+        next();
+    })
+
+    app.use(bodyParser.json({limit: 2000000, type:(req)=>true}));
+    app.use(bodyParser.urlencoded({ extended: false }));
+
+    // Routes
+    var itest = 0;
+    app.get('/test', function(req, res, next) {res.send('OK ' + (itest++))});
+    app.use("/", require("./routes"));
 
 
-app.use(function(req, res, next) {
-    console.log('---------------');
-    console.log(req.headers);
-    console.log('---------------'); 
-    next();
-})
-
-app.use(ExpressSession({
-    secret: 'keyboard cat',
-    resave: true,
-    saveUninitialized: true
-}));
-
-app.use(function(req, res, next) {
-    console.log('--- session log');
-    console.log(req.session);
-    console.log('---------------');
-    next();
-})
-
-app.use(bodyParser.json({limit: 2000000, type:(req)=>true}));
-app.use(bodyParser.urlencoded({ extended: false }));
-
-// Routes
-var itest = 0;
-app.get('/test', function(req, res, next) {res.send('OK ' + (itest++))});
-app.use("/", require("./routes"));
-
-
-// Client
-var distDir = path.join(__dirname, "..", "..", "client", "dist")
-app.use('/', express.static(distDir));
-app.get('/*', function (req, res) {
-    res.sendFile(path.join(distDir + '/index.html'));
-});
+    // Client
+    var distDir = path.join(__dirname, "..", "..", "client", "dist")
+    app.use('/', express.static(distDir));
+    app.get('/*', function (req, res) {
+        res.sendFile(path.join(distDir + '/index.html'));
+    });
 
 
 
-// error handlers
+    // error handlers
 
-app.use(function(req, res, next) {
-    let err = <any>new Error("Not Found");
-    err["status"] = 404;
-    next(err);
-});
+    app.use(function(req, res, next) {
+        let err = <any>new Error("Not Found");
+        err["status"] = 404;
+        next(err);
+    });
 
-// development error handler
-// will print stacktrace
-if (app.get("env") === "development") {
+    // development error handler
+    // will print stacktrace
+    if (app.get("env") === "development") {
+        app.use(function(err: any, req: express.Request, res: express.Response, next: express.NextFunction) {
+            //console.log(err.stack);
+
+            console.log(err.message);
+            console.log(err);
+            
+            res.locals.message = err.message;
+            res.locals.error = req.app.get('env') === 'development' ? err : {};
+            res.status(err.status || 500);
+            res.write(JSON.stringify({
+                message: err.message,
+                error: err
+            }));
+            res.end();
+        });
+    }
+
+
+    // production error handler
+    // no stacktraces leaked to user
     app.use(function(err: any, req: express.Request, res: express.Response, next: express.NextFunction) {
-        //console.log(err.stack);
-
-        console.log(err.message);
-        console.log(err);
-        
-        res.locals.message = err.message;
-        res.locals.error = req.app.get('env') === 'development' ? err : {};
         res.status(err.status || 500);
         res.write(JSON.stringify({
             message: err.message,
@@ -92,18 +113,7 @@ if (app.get("env") === "development") {
         }));
         res.end();
     });
-}
 
 
-// production error handler
-// no stacktraces leaked to user
-app.use(function(err: any, req: express.Request, res: express.Response, next: express.NextFunction) {
-    res.status(err.status || 500);
-    res.write(JSON.stringify({
-        message: err.message,
-        error: err
-    }));
-    res.end();
-});
+})();
 
-export = app;

@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./out-tsc/start.js",
-    "tests": "cp features/*.feature out-tsc/features && cd out-tsc && node ../node_modules/cucumber/bin/cucumber.js && cd .."
+    "tests": "reset && rm -f out-tsc/features/*.feature && cp features/*.feature out-tsc/features && cd out-tsc && node ../node_modules/cucumber/bin/cucumber.js",
+    "selenium": "selenium-standalone start"
   },
   "dependencies": {
     "@types/body-parser": "^1.16.3",

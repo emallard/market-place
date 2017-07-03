@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { FormInput } from "app/_core/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { UserController } from "app/_api/api";
@@ -18,12 +18,13 @@ export class SeConnecterComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private userController:UserController) { }
+    private userController:UserController,
+    private ngZone: NgZone) { }
 
   ngOnInit() {
-    this.email.value='b@b.b';
-    this.password.value='aaaa';
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.email.value='';
+    this.password.value='';
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/vendeur';
   }
 
   async seConnecter()
@@ -38,5 +39,6 @@ export class SeConnecterComponent implements OnInit {
     );
 
     this.router.navigate([this.returnUrl]);
+    //this.ngZone.run(() => {this.router.navigate([this.returnUrl]);});
   }
 }

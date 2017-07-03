@@ -15,10 +15,9 @@ export class TableauDeBordComponent implements OnInit {
     private router: Router,
     private vendeurController: VendeurController) { }
 
-  produits:Produit[] = [{nom:'r', prix:1}];
+  produits:Produit[] = [];
   
-  nom = new FormInput();
-  prix = new FormInput();
+
 
   ngOnInit() {
     this.vendeurController.rechercherProduits().then(result => 
@@ -29,11 +28,5 @@ export class TableauDeBordComponent implements OnInit {
   }
 
 
-  ajouterProduit()
-  {
-    var nouveauProduit = new Produit();
-    nouveauProduit.nom = this.nom.value;
-    nouveauProduit.prix = parseFloat(this.prix.value);
-    this.vendeurController.ajouterProduits(nouveauProduit);
-  }
+
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormInput } from "app/_core/forms";
 import { PublicController, Inscription, UserController } from "app/_api/api";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-devenir-vendeur',
@@ -16,18 +17,20 @@ export class DevenirVendeurComponent implements OnInit {
   loading = false;
 
   constructor(
+    private router: Router,
     private userController:UserController) { }
 
   ngOnInit() {
   }
 
   async devenirVendeur() {
-      console.log('devenirVendeur ',this.email.value , this.password.value , this.boutique.value);
+      //console.log('devenirVendeur ',this.email.value , this.password.value , this.boutique.value);
 
       var inscription: Inscription = {email : this.email.value , password: this.password.value};
       await this.userController.inscrireVendeur(inscription);
 
-      console.log('devenirVendeur OK');
+      this.router.navigate(['/vendeur']);
+      //console.log('devenirVendeur OK');
   }
 
 }

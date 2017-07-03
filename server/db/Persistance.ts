@@ -1,6 +1,8 @@
 import { Db } from "mongodb";
 import mongodb = require("mongodb");
 import config = require('../config');
+import { Produit } from "../_model/Produit";
+import { Utilisateur } from "../_model/Utilisateur";
 
 export class Persistance {
 
@@ -18,12 +20,12 @@ export class Persistance {
         return Persistance.singleton()._mongodb;
     }
 
-    static utilisateurs():mongodb.Collection
+    static utilisateurs():mongodb.Collection<Utilisateur>
     {
         return Persistance.singleton()._mongodb.collection('utilisateurs');
     }
 
-    static produits():mongodb.Collection
+    static produits():mongodb.Collection<Produit>
     {
         return Persistance.singleton()._mongodb.collection('produits');
     }
@@ -36,11 +38,12 @@ export class Persistance {
 
     private _mongodb:Db;
 
-    constructor()
+    async init()
     {
         var MongoClient = mongodb.MongoClient;
         var url = config.mongo_url;
-        MongoClient.connect(url).then(result => { this._mongodb = result; console.log('connected to mongodb ' + url);});
+        this._mongodb = await MongoClient.connect(url);
+        console.log('mongodb connected');
     }
 
     collection<T>(type:{new():T}) : mongodb.Collection<T>

@@ -21,6 +21,7 @@ export class VendeurController
         if (this.utilisateurConnecte.id == null)
             throw "Forbidden";
 
+        /*
         var utilisateurs = 
         <Utilisateur[]> await Persistance.utilisateurs().find(
             {
@@ -29,6 +30,15 @@ export class VendeurController
             ).toArray();
 
         return utilisateurs[0].vendeur.produits;
+        */
+
+        var produits = 
+        await Persistance.produits().find(
+            {
+                idUtilisateur:this.utilisateurConnecte.id
+            }
+        ).toArray();
+        return produits;
     }
 
     async ajouterProduits(produit:Produit) : Promise<void>
@@ -36,7 +46,8 @@ export class VendeurController
         if (this.utilisateurConnecte.id == null)
             throw "Forbidden";
 
-        await Persistance.utilisateurs().update({}, {$push:{"vendeur.produits":produit}});
+        produit.idUtilisateur = this.utilisateurConnecte.id;
+        await Persistance.produits().insertOne(produit);
     }
 
 }

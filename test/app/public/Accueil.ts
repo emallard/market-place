@@ -3,7 +3,10 @@
 import { Workspace } from "../Workspace";
 import { By } from "selenium-webdriver";
 import { PageBase } from "../PageBase";
-import { SInscrireCommeVendeur } from "./SInscrireCommeVendeur";
+
+export class SInscrireCommeVendeur extends PageBase
+{
+}
 
 export class Accueil extends PageBase
 {

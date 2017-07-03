@@ -4,3 +4,5 @@ Installer geckodriver et rajotuer dans le PATH de .profile
 npm install selenium-standalone@latest -g
 selenium-standalone install
 selenium-standalone start
+
+npm run --silent tests features/produits.feature

@@ -15,6 +15,11 @@ export class MySteps {
         
     }
 
+    @before()
+    async beforeAllScenarios() {
+        await this.workspace.initDriver();
+    }
+
     @given(/^je suis sur la page d'accueil/)
     async givenPageDAccueil() {
         await this.workspace.changerPage(Accueil).atteindre();
@@ -49,10 +54,14 @@ export class MySteps {
     }
 
     @then(/^je dois arriver sur le tableau de bord vendeur$/)
-    async jeDoisArriverSur()
+    async jeDoisArriverSurLeTableauDeBordVendeur()
     {
 
     }
     
+    @then(/^je vois mon produit$/)
+    async jeVoisMonProduit()
+    {
 
+    }
 }

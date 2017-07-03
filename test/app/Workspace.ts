@@ -1,4 +1,4 @@
-
+import * as Request from 'request-promise-native';
 import * as webdriver from "selenium-webdriver";
 import * as firefox from "selenium-webdriver/firefox";
 import { By, ThenableWebDriver } from "selenium-webdriver";
@@ -9,18 +9,14 @@ export class Workspace
     driver:ThenableWebDriver;
     _pageCourante : PageBase;
     
-    constructor()
+    async initDriver()
     {
-        console.log('Workspace constructor');
+        console.log('init driver');
         this.driver = new webdriver.Builder()
             .forBrowser('firefox')
             .usingServer('http://localhost:4444/wd/hub')
             .build();
-    }
-
-    async initDriver()
-    {
-        
+        await Request.post('http://localhost:3000/TestController/donneesVides');
     }
 
     pageCourante<T extends PageBase>(type:{new(w:Workspace):T}) : T
@@ -34,5 +30,11 @@ export class Workspace
         var p = new type(this);
         this._pageCourante = p;
         return p;
+    }
+
+
+    post(url:string, args:any)
+    {
+
     }
 }

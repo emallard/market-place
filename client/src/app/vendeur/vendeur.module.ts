@@ -4,6 +4,7 @@ import { RouterModule }   from '@angular/router';
 import { FormsModule }   from '@angular/forms';
 import { TableauDeBordComponent } from './tableau-de-bord/tableau-de-bord.component';
 import { VendeurController } from "app/_api/api";
+import { AjouterProduitComponent } from './ajouter-produit/ajouter-produit.component';
 
 
 @NgModule({
@@ -13,10 +14,11 @@ import { VendeurController } from "app/_api/api";
     RouterModule.forRoot([
       {path: 'vendeur', component:TableauDeBordComponent},
       {path: 'vendeur/produit/:id', component:TableauDeBordComponent},
+      {path: 'vendeur/ajouter-produit', component:AjouterProduitComponent},
     ])
   ],
   
-  declarations: [TableauDeBordComponent],
+  declarations: [TableauDeBordComponent, AjouterProduitComponent],
 
   providers: [VendeurController]
 })

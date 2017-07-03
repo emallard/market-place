@@ -7,6 +7,7 @@ import { Persistance } from "../db/Persistance";
 import { Connexion } from "../_api/Connexion";
 import { VendeurController } from "./VendeurController";
 import { Produit } from "../_model/Produit";
+import { Vendeur } from "../_model/Vendeur";
 
 export class TestController
 {
@@ -14,6 +15,7 @@ export class TestController
     {
         await Persistance.drop();
     }
+
 
     /*
     async insererVendeurEtSeConnecter() : Promise<string>
