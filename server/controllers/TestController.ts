@@ -8,12 +8,25 @@ import { Connexion } from "../_api/Connexion";
 import { VendeurController } from "./VendeurController";
 import { Produit } from "../_model/Produit";
 import { Vendeur } from "../_model/Vendeur";
+import { Session } from "../Session";
+import { Impersonation } from "../_api/Impersonation";
+
 
 export class TestController
 {
+    session: Session;
+    
     async donneesVides() : Promise<void>
     {
         await Persistance.drop();
+    }
+
+    async impersonate(impersonation:Impersonation) : Promise<void>
+    {
+        var utilisateurs = await Persistance.utilisateurs().find({email: impersonation.email}, { _id: 1}).toArray();
+        if (utilisateurs.length == 0)
+            throw "Pas d'utilisateur trouvé pour cet email";
+        this.session.setUserId(utilisateurs[0]._id.toHexString());
     }
 
 

@@ -56,13 +56,13 @@ res.send(JSON.stringify(retour));
 
 import {VendeurController} from "./controllers/VendeurController"
 
-router.post("/VendeurController/rechercherProduits", async function (req: express.Request, res: express.Response, next: express.NextFunction)
+router.post("/VendeurController/tousLesProduits", async function (req: express.Request, res: express.Response, next: express.NextFunction)
 { var c = new VendeurController();
 var session = new Session();
 session.req = req;
 c['session'] = session
 c['utilisateurConnecte'] = (req.session.userId == null) ? {id:null} : {id: new ObjectID(req.session.userId)};
-var retour = await c.rechercherProduits();
+var retour = await c.tousLesProduits();
 res.send(JSON.stringify(retour));
 });
 
@@ -87,6 +87,17 @@ session.req = req;
 c['session'] = session
 c['utilisateurConnecte'] = (req.session.userId == null) ? {id:null} : {id: new ObjectID(req.session.userId)};
 var retour = await c.donneesVides();
+res.send(JSON.stringify(retour));
+});
+
+
+router.post("/TestController/impersonate", async function (req: express.Request, res: express.Response, next: express.NextFunction)
+{ var c = new TestController();
+var session = new Session();
+session.req = req;
+c['session'] = session
+c['utilisateurConnecte'] = (req.session.userId == null) ? {id:null} : {id: new ObjectID(req.session.userId)};
+var retour = await c.impersonate(<any> req.body);
 res.send(JSON.stringify(retour));
 });
 

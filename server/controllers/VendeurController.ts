@@ -9,6 +9,7 @@ import { Produit } from "../_model/Produit";
 import { Utilisateur } from "../_model/Utilisateur";
 import { ObjectID } from "mongodb";
 import { UtilisateurConnecte } from "../UtilisateurConnecte";
+import { RechercheProduit } from "../_api/RechercheProduit";
 
 let router = express.Router();
 
@@ -16,28 +17,19 @@ export class VendeurController
 {
     utilisateurConnecte:UtilisateurConnecte
 
-    async rechercherProduits() : Promise<Produit[]>
+    
+
+    async tousLesProduits() : Promise<Produit[]>
     {
         if (this.utilisateurConnecte.id == null)
             throw "Forbidden";
 
-        /*
-        var utilisateurs = 
-        <Utilisateur[]> await Persistance.utilisateurs().find(
+        var produits = 
+        <Produit[]> await Persistance.produits().find(
             {
-                _id:this.utilisateurConnecte.id}, 
-                {'vendeur.produits':1}
+                idUtilisateur:this.utilisateurConnecte.id}
             ).toArray();
 
-        return utilisateurs[0].vendeur.produits;
-        */
-
-        var produits = 
-        await Persistance.produits().find(
-            {
-                idUtilisateur:this.utilisateurConnecte.id
-            }
-        ).toArray();
         return produits;
     }
 

@@ -50,8 +50,11 @@ export class InformationUtilisateur{
 
 @Injectable()
 export class Produit{ 
+    _id:ObjectID;
+    idUtilisateur:ObjectID;
     nom:string;
     prix:number;
+    category:string;
 }
 
 @Injectable()
@@ -71,7 +74,7 @@ export class Utilisateur{
 
 @Injectable()
 export class PublicController{ 
-    rechercherProduits(recherche:RechercheProduit)  : Promise<ApiProduit[]>{    return callApi("PublicController/rechercherProduits",recherche); }
+    rechercherProduits(recherche:RechercheProduit)  : Promise<Produit[]>{    return callApi("PublicController/rechercherProduits",recherche); }
 }
 
 @Injectable()
@@ -94,6 +97,17 @@ export class UserController{
 
 @Injectable()
 export class VendeurController{ 
-    rechercherProduits()  : Promise<Produit[]>{    return callApi("VendeurController/rechercherProduits",{}); }
+    tousLesProduits()  : Promise<Produit[]>{    return callApi("VendeurController/tousLesProduits",{}); }
     ajouterProduits(produit:Produit)  : Promise<void>{    return callApi("VendeurController/ajouterProduits",produit); }
+}
+
+@Injectable()
+export class Impersonation{ 
+    email:string;
+}
+
+@Injectable()
+export class TestController{ 
+    donneesVides()  : Promise<void>{    return callApi("TestController/donneesVides",{}); }
+    impersonate(impersonation:Impersonation)  : Promise<void>{    return callApi("TestController/impersonate",impersonation); }
 }

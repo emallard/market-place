@@ -33,6 +33,7 @@ export class Persistance {
     static async drop()
     {
         await Persistance.singleton()._mongodb.dropDatabase();
+        Persistance.singleton().configure();
         //Persistance._singleton = new Persistance();
     }
 
@@ -44,6 +45,12 @@ export class Persistance {
         var url = config.mongo_url;
         this._mongodb = await MongoClient.connect(url);
         console.log('mongodb connected');
+        this.configure();
+    }
+
+    configure()
+    {
+        Persistance.produits().createIndex({nom:"text"});
     }
 
     collection<T>(type:{new():T}) : mongodb.Collection<T>

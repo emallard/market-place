@@ -20,7 +20,7 @@ export class TableauDeBordComponent implements OnInit {
 
 
   ngOnInit() {
-    this.vendeurController.rechercherProduits().then(result => 
+    this.vendeurController.tousLesProduits().then(result => 
     {
       console.log(result);
       this.produits=result;

@@ -1,6 +1,5 @@
 # language: fr
-Fonctionnalité: Ajout et recherche de produits
-   Permettre d'ajouter et de voir les produits
+Fonctionnalité: Ajout de produits et modification de produit
    
    Scénario: Ajouter un produit
       Etant donné un nouveau vendeur sur son tableau de bord

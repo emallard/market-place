@@ -3,20 +3,25 @@ import * as webdriver from "selenium-webdriver";
 import * as firefox from "selenium-webdriver/firefox";
 import { By, ThenableWebDriver } from "selenium-webdriver";
 import { PageBase } from "./PageBase";
+import { ApiCall } from "../api/api";
+import { Aide } from "../features/aide/Aide";
 
 export class Workspace
 {
+    aide:Aide;
     driver:ThenableWebDriver;
     _pageCourante : PageBase;
     
     async initDriver()
     {
+        this.aide = new Aide();
         console.log('init driver');
         this.driver = new webdriver.Builder()
             .forBrowser('firefox')
             .usingServer('http://localhost:4444/wd/hub')
             .build();
-        await Request.post('http://localhost:3000/TestController/donneesVides');
+        ApiCall.resetRequest();
+        await ApiCall.callApi('TestController/donneesVides', {});
     }
 
     pageCourante<T extends PageBase>(type:{new(w:Workspace):T}) : T

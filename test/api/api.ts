@@ -1,20 +1,29 @@
 import * as Request from 'request-promise-native';
 
-    export class ObjectID 
+
+export class ApiCall
+{
+    static myRequest = Request.defaults({jar:true});
+
+    static resetRequest()
     {
-        _id:string;
+        ApiCall.myRequest = Request.defaults({jar:true});
     }
 
-let myRequest = Request.defaults({jar:true});
-
-    async function callApi<T>(url, parameters) : Promise<any>
+    static async callApi<T>(url, parameters) : Promise<any>
     {
         //console.log('envoi', parameters);
-        var retour = await myRequest.post('http://localhost:3000/' + url, {body: JSON.stringify(parameters)});
+        var retour = await ApiCall.myRequest.post('http://localhost:3000/' + url, {body: JSON.stringify(parameters)});
         //console.log('retour', retour);
 
         return retour;
     }
+}
+     
+export class ObjectID 
+{
+    _id:string;
+}
 
 export class RechercheProduit{ 
     nom:string;
@@ -56,7 +65,7 @@ export class Utilisateur{
 }
 
 export class PublicController{ 
-    rechercherProduits(recherche:RechercheProduit)  : Promise<ApiProduit[]>{    return callApi("PublicController/rechercherProduits",recherche); }
+    rechercherProduits(recherche:RechercheProduit)  : Promise<ApiProduit[]>{    return ApiCall.callApi("PublicController/rechercherProduits",recherche); }
 }
 
 export class Connexion{ 
@@ -69,12 +78,22 @@ export class Token{
 }
 
 export class UserController{ 
-    async inscrireVendeur(inscription:Inscription)  : Promise<void>{    return await callApi("UserController/inscrireVendeur",inscription); }
-    async informationUtilisateurConnecte()  : Promise<InformationUtilisateur>{    return await callApi("UserController/informationUtilisateurConnecte",{}); }
-    async seConnecter(connexion:Connexion)  : Promise<void>{    return await callApi("UserController/seConnecter",connexion); }
+    async inscrireVendeur(inscription:Inscription)  : Promise<void>{    return await ApiCall.callApi("UserController/inscrireVendeur",inscription); }
+    async informationUtilisateurConnecte()  : Promise<InformationUtilisateur>{    return await ApiCall.callApi("UserController/informationUtilisateurConnecte",{}); }
+    async seConnecter(connexion:Connexion)  : Promise<void>{    return await ApiCall.callApi("UserController/seConnecter",connexion); }
 }
 
 export class VendeurController{ 
-    rechercherProduits()  : Promise<Produit[]>{    return callApi("VendeurController/rechercherProduits",{}); }
-    ajouterProduits(produit:Produit)  : Promise<void>{    return callApi("VendeurController/ajouterProduits",produit); }
+
+    async rechercherProduits()  : Promise<Produit[]>{    return await ApiCall.callApi("VendeurController/rechercherProduits",{}); }
+    async ajouterProduits(produit:Produit)  : Promise<void>{    return await ApiCall.callApi("VendeurController/ajouterProduits",produit); }
+}
+
+export class TestController{ 
+    async impersonate(impersonation:Impersonation)  : Promise<void>{    return await ApiCall.callApi("TestController/impersonate",impersonation); }
+}
+
+export class Impersonation
+{
+    email:string;
 }

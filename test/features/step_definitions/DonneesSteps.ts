@@ -2,7 +2,7 @@ import { binding, given, then, before } from "cucumber-tsflow";
 import * as Request from 'request-promise-native';
 import { Workspace } from "../../app/Workspace";
 import { SeConnecter } from "../../app/public/SeConnecter";
-import { UserController, Inscription } from "../../api/api";
+import { UserController, Inscription, TestController, VendeurController } from "../../api/api";
 import { TableauDeBord } from "../../app/vendeur/TableauDeBord";
 
 
@@ -34,6 +34,17 @@ export class DonneesSteps {
         await scpage.seConnecter(inscription);
 
         this.workspace.changerPage(TableauDeBord);
+    }
+
+    @given(/^le produit ayant pour nom "([^"]*)"/)
+    async givenLeProduitAyantPourNom(nom:string) {
+        var emailVendeur = await this.workspace.aide.unVendeur();
+        var testController = new TestController();
+        await testController.impersonate({email: emailVendeur});
+        var vendeurControlleur = new VendeurController();
+        var p = this.workspace.aide.unNouveauProduit();
+        p.nom = nom;
+        await vendeurControlleur.ajouterProduits(p);
     }
 
 }

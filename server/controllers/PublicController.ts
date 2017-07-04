@@ -11,6 +11,7 @@ import { Persistance } from "../db/Persistance";
 import { Utilisateur } from "../_model/Utilisateur";
 import { ObjectID } from "mongodb";
 import { UtilisateurConnecte } from "../UtilisateurConnecte";
+import { Produit } from "../_model/Produit";
 
 let router = express.Router();
 
@@ -21,22 +22,11 @@ export class PublicController
 {
     utilisateurConnecte: UtilisateurConnecte;
 
-    async rechercherProduits(recherche:RechercheProduit) : Promise<ApiProduit[]>
+    async rechercherProduits(recherche:RechercheProduit) : Promise<Produit[]>
     {
-        /*
-        var collectionVendeur = db.mongoDb().collection('produits');
-        var resultats = await collectionVendeur.find({
-            nom: recherche.nom,
-            boutique: recherche.boutique});
-
-        return resultats.toArray();
-        */
-
-
-        var p1 = new ApiProduit();
-        p1.nom = "produit1";
-        p1.prix = 4;
-        return [p1];
+        var produits = 
+        await Persistance.produits().find({$text:{$search:recherche.nom}}).toArray();
+        return produits;
     }
 
     
