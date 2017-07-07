@@ -14,6 +14,7 @@ export class SeConnecterComponent implements OnInit {
   email = new FormInput();
   password = new FormInput();
   returnUrl:string;
+  loading = false;
 
   constructor(
     private route: ActivatedRoute,

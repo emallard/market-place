@@ -12,6 +12,7 @@ export class AjouterProduitComponent implements OnInit {
 
   nom = new FormInput();
   prix = new FormInput();
+  loading = false;
   
   constructor(
     private vendeurController: VendeurController,

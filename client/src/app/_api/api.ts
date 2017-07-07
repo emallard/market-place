@@ -5,24 +5,8 @@
     }
 
     import { Injectable } from '@angular/core';
-    async function callApi<T>(url, parameters) : Promise<any>
-    {
-        
-        var reponse = await fetch('http://localhost:3000/' + url, 
-        { 
-            method: "POST",
-            body: JSON.stringify(parameters),            
-            mode: 'cors',
-            credentials : 'include'
-        });
+    import { Api } from "app/_core/api";
 
-        var resultText = await reponse.text();
-        if (resultText.length > 0)
-            return JSON.parse(resultText);
-
-        return undefined;
-
-    }
 @Injectable()
 export class RechercheProduit{ 
     nom:string;
@@ -74,7 +58,7 @@ export class Utilisateur{
 
 @Injectable()
 export class PublicController{ 
-    rechercherProduits(recherche:RechercheProduit)  : Promise<Produit[]>{    return callApi("PublicController/rechercherProduits",recherche); }
+    rechercherProduits(recherche:RechercheProduit)  : Promise<Produit[]>{    return Api.appeler("PublicController/rechercherProduits",recherche); }
 }
 
 @Injectable()
@@ -90,15 +74,15 @@ export class Token{
 
 @Injectable()
 export class UserController{ 
-    inscrireVendeur(inscription:Inscription)  : Promise<void>{    return callApi("UserController/inscrireVendeur",inscription); }
-    informationUtilisateurConnecte()  : Promise<InformationUtilisateur>{    return callApi("UserController/informationUtilisateurConnecte",{}); }
-    seConnecter(connexion:Connexion)  : Promise<void>{    return callApi("UserController/seConnecter",connexion); }
+    inscrireVendeur(inscription:Inscription)  : Promise<void>{    return Api.appeler("UserController/inscrireVendeur",inscription); }
+    informationUtilisateurConnecte()  : Promise<InformationUtilisateur>{    return Api.appeler("UserController/informationUtilisateurConnecte",{}); }
+    seConnecter(connexion:Connexion)  : Promise<void>{    return Api.appeler("UserController/seConnecter",connexion); }
 }
 
 @Injectable()
 export class VendeurController{ 
-    tousLesProduits()  : Promise<Produit[]>{    return callApi("VendeurController/tousLesProduits",{}); }
-    ajouterProduits(produit:Produit)  : Promise<void>{    return callApi("VendeurController/ajouterProduits",produit); }
+    tousLesProduits()  : Promise<Produit[]>{    return Api.appeler("VendeurController/tousLesProduits",{}); }
+    ajouterProduits(produit:Produit)  : Promise<void>{    return Api.appeler("VendeurController/ajouterProduits",produit); }
 }
 
 @Injectable()
@@ -108,6 +92,6 @@ export class Impersonation{
 
 @Injectable()
 export class TestController{ 
-    donneesVides()  : Promise<void>{    return callApi("TestController/donneesVides",{}); }
-    impersonate(impersonation:Impersonation)  : Promise<void>{    return callApi("TestController/impersonate",impersonation); }
+    donneesVides()  : Promise<void>{    return Api.appeler("TestController/donneesVides",{}); }
+    impersonate(impersonation:Impersonation)  : Promise<void>{    return Api.appeler("TestController/impersonate",impersonation); }
 }

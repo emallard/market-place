@@ -7,17 +7,22 @@ import { RechercheProduitsComponent } from "app/public/recherche-produits/recher
 import { DevenirVendeurComponent } from './devenir-vendeur/devenir-vendeur.component';
 import { SeConnecterComponent } from './se-connecter/se-connecter.component';
 import { AccueilComponent } from './accueil/accueil.component';
-import { SInscrireCommeVendeurComponent } from './s-inscrire-comme-vendeur/s-inscrire-comme-vendeur.component';
 import { PublicController, UserController } from "app/_api/api";
+import { LandingComponent } from './landing/landing.component';
 
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule
+    RouterModule.forRoot([
+      {path: 'landing', component:LandingComponent},
+      {path: 'devenir-vendeur', component:DevenirVendeurComponent},
+      {path: 'se-connecter', component:SeConnecterComponent},
+      {path: '', component:AccueilComponent},
+    ]),
   ],
-  declarations: [RechercheProduitsComponent, DevenirVendeurComponent, SeConnecterComponent, AccueilComponent, SInscrireCommeVendeurComponent],
+  declarations: [RechercheProduitsComponent, DevenirVendeurComponent, SeConnecterComponent, AccueilComponent, LandingComponent],
   providers: [PublicController, UserController]
 })
 export class PublicModule { }

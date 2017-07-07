@@ -18,11 +18,7 @@ import { VendeurModule } from "app/vendeur/vendeur.module";
   imports: [
     BrowserModule,
     FormsModule,
-    RouterModule.forRoot([
-      {path: 'devenir-vendeur', component:DevenirVendeurComponent},
-      {path: 'se-connecter', component:SeConnecterComponent},
-      {path: '', component:AccueilComponent},
-    ]),
+    RouterModule,
     PublicModule,
     VendeurModule
   ],

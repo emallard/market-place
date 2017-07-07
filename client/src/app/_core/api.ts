@@ -1,20 +1,27 @@
-export class ApiFunction<In, Out>
-{
-  constructor(private url:string)
-  {
 
-  }
-
-  async appeler(args: In): Promise<Out>
-  {
-    return await Api.appeler(this.url, args);
-  }
-}
+import { environment } from 'environments/environment';
 
 export class Api
 {
 
     static async appeler<T>(url, parameters) : Promise<any>
+    {
+        var reponse = await fetch(environment.apiPrefixUrl + url, 
+        { 
+            method: "POST",
+            body: JSON.stringify(parameters),            
+            mode: 'cors',
+            credentials : 'include'
+        });
+
+        var resultText = await reponse.text();
+        if (resultText.length > 0)
+            return JSON.parse(resultText);
+
+        return undefined;
+    }
+
+    static async appelerJwt<T>(url, parameters) : Promise<any>
     {
         console.log('appeler ' + url);
         var myHeaders = new Headers();

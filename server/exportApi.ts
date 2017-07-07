@@ -19,24 +19,8 @@ function generateDocumentation(fileNames: string[], options: ts.CompilerOptions,
     }
 
     import { Injectable } from '@angular/core';
-    async function callApi<T>(url, parameters) : Promise<any>
-    {
-        
-        var reponse = await fetch('http://localhost:3000/' + url, 
-        { 
-            method: "POST",
-            body: JSON.stringify(parameters),            
-            mode: 'cors',
-            credentials : 'include'
-        });
-
-        var resultText = await reponse.text();
-        if (resultText.length > 0)
-            return JSON.parse(resultText);
-
-        return undefined;
-
-    }`)
+    import { Api } from "app/_core/api";
+    `)
 
     // Visit every sourceFile in the program    
     for (const sourceFile of program.getSourceFiles()) {
@@ -159,7 +143,7 @@ function generateDocumentation(fileNames: string[], options: ts.CompilerOptions,
         +') '
         +' : ' + returnType
         +'{ ' 
-        + '   return callApi('+transferredParameters.join(',')+'); '
+        + '   return Api.appeler('+transferredParameters.join(',')+'); '
         + '}\n';
         /*
             

@@ -10,6 +10,7 @@ import { Produit } from "../_model/Produit";
 import { Vendeur } from "../_model/Vendeur";
 import { Session } from "../Session";
 import { Impersonation } from "../_api/Impersonation";
+import { Email } from "../services/Email";
 
 
 export class TestController
@@ -29,6 +30,10 @@ export class TestController
         this.session.setUserId(utilisateurs[0]._id.toHexString());
     }
 
+    async emailsEnvoyes() : Promise<Email[]>
+    {
+        return await Persistance.emails().find().toArray();
+    }
 
     /*
     async insererVendeurEtSeConnecter() : Promise<string>

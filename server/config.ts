@@ -1,29 +1,47 @@
 import fs = require('fs');
 
-interface config
+export class Config
 {
-    mongo_url : string;
 
+    private static _singleton:Config;
+    static singleton():Config
+    {
+        if (Config._singleton == null)
+            Config._singleton = new Config();
+        return Config._singleton;
+    }
+
+    mongo_url : string;
+    smtp?: configSmtp;
+    domaineFrontend: string;
+    utiliserMongoStorePourLaSession: boolean;
+    motDePasseAccesRestreint? : string;
 }
 
-var c:config = {
-    mongo_url : 'mongodb://localhost:27017/marketplace'
-
-
-
-};
-
-
-if (fs.existsSync(__dirname + '/../config.override.json'))
+class configSmtp
 {
-    console.log('config.override.json YES');
+    host : string;
+    port: number;
+    secure : boolean;
+    user: string;
+    pass: string;
+}
+
+var c = Config.singleton();
+
+if (fs.existsSync(__dirname + '/config.override.js'))
+{
+    console.log('config.override.js YES');
+
+    var override = require('./config.override.js')
+    
+    /*
     var fileContent = fs.readFileSync(__dirname + '/../config.override.json', 'utf8');
     var override = JSON.parse(fileContent);
     for (var key in override)
         c[key] = override[key];
+    */
+    override(c);
 }
 else
     console.log('config.override.json NO');
-    
-
-export = c;

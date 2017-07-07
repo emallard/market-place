@@ -13,11 +13,6 @@ import { ObjectID } from "mongodb";
 import { UtilisateurConnecte } from "../UtilisateurConnecte";
 import { Produit } from "../_model/Produit";
 
-let router = express.Router();
-
-
-
-
 export class PublicController
 {
     utilisateurConnecte: UtilisateurConnecte;
@@ -28,6 +23,4 @@ export class PublicController
         await Persistance.produits().find({$text:{$search:recherche.nom}}).toArray();
         return produits;
     }
-
-    
 }

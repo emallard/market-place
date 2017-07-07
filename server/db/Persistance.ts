@@ -3,6 +3,9 @@ import mongodb = require("mongodb");
 import config = require('../config');
 import { Produit } from "../_model/Produit";
 import { Utilisateur } from "../_model/Utilisateur";
+import { Email } from "../services/Email";
+import { Config } from "../config";
+import { TokenMotDePasse } from "../_model/TokenMotDePasse";
 
 export class Persistance {
 
@@ -30,6 +33,16 @@ export class Persistance {
         return Persistance.singleton()._mongodb.collection('produits');
     }
 
+    static emails():mongodb.Collection<Email>
+    {
+        return Persistance.singleton()._mongodb.collection('emails');
+    }
+
+     static tokensMotDePasse():mongodb.Collection<TokenMotDePasse>
+    {
+        return Persistance.singleton()._mongodb.collection('tokensMotDePasse');
+    }
+
     static async drop()
     {
         await Persistance.singleton()._mongodb.dropDatabase();
@@ -42,7 +55,7 @@ export class Persistance {
     async init()
     {
         var MongoClient = mongodb.MongoClient;
-        var url = config.mongo_url;
+        var url = Config.singleton().mongo_url;
         this._mongodb = await MongoClient.connect(url);
         console.log('mongodb connected');
         this.configure();

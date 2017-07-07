@@ -12,5 +12,6 @@ Fonctionnalité: Inscription Vendeur
       Et que je remplis "password" avec "password"
       Et que je clique sur le bouton "Devenir vendeur"
       Alors je dois arriver sur le tableau de bord vendeur 
+      #Et je reçois un email à "etienne.mallard@gmail.com"
       #Et je vois un le message "Bienvenue"
 
