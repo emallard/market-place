@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { PublicController, InformationUtilisateur, UserController, RechercheProduit, ApiProduit } from "app/_api/api";
 import { FormInput } from "app/_core/forms";
+declare var $;
 
 @Component({
   selector: 'app-accueil',
   templateUrl: './accueil.component.html',
-  styleUrls: ['./accueil.component.css']
+  styleUrls: ['./accueil.component.css', '../../styles/app.scss']
 })
 export class AccueilComponent implements OnInit {
 
@@ -22,6 +23,10 @@ export class AccueilComponent implements OnInit {
   async ngOnInit() {
 
     this.info = await this.userController.informationUtilisateurConnecte();
+  }
+
+  ngAfterViewInit() {
+    $('.datetimepicker4').datetimepicker({locale: 'fr', format: 'DD/MM/YYYY'});
   }
 
   async rechercher() {

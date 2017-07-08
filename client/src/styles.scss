@@ -1,0 +1,56 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "../node_modules/bootstrap/dist/css/bootstrap.css";
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+@import url('https://fonts.googleapis.com/css?family=Sacramento');
+@import url('https://fonts.googleapis.com/css?family=Marck+Script');
+
+body {
+    font-family: 'Raleway', sans-serif;
+    
+}
+ 
+.btn {
+    border-radius: 40px;
+    padding-bottom: 10px;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 10px;
+
+}
+
+.form-control {
+    height: 40px;
+}
+
+.navbar-default
+{
+    background-color: rgba( #fff, 0.8);
+    margin-top:30px;
+}
+.navbar {
+    min-height:80px;
+
+    .btn-navbar { 
+        margin-top: 7px;
+        margin-bottom: 15px;
+    }
+
+    .link2 {
+        background-color: rgba( #fafafa, 0.8);
+        
+        font-family: 'Sacramento', cursive;
+        font-size: 27px;
+
+        margin-right:20px;
+        border-top: solid 1px #ccc;
+        border-bottom: solid 1px #ccc;
+    }
+
+    .link3 {
+        font: italic normal 700 14px raleway,sans-serif;
+        color:black !important;
+        margin-top:4px;
+    }
+    
+}

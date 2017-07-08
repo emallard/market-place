@@ -1,31 +1,80 @@
 
-<div *ngIf="!info.email">
-    <a [routerLink]="['/se-connecter']">Connexion</a>
-    <a routerLink="/devenir-vendeur">Devenir vendeur</a>
+<div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a href="../" class="navbar-brand">LOGO</a>
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-main">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a class="link2" href="../help/">Le concept</a>
+                </li>
+                <li>
+                    <a class="link2" href="../help">Organiser une vente</a>
+                </li>
+            </ul>
+
+            <div class="nav navbar-nav navbar-right">
+                <a routerLink="/devenir-vendeur" class="btn btn-info btn-navbar" role="button">Devenir Vendeur</a>
+            </div>
+
+
+
+            <ul class="nav navbar-nav navbar-right">
+                <li *ngIf="!info.email">
+                    <a [routerLink]="['/se-connecter']" class="link3">Inscription</a>
+                </li>
+                <li *ngIf="!info.email">
+                    <a [routerLink]="['/se-connecter']" class="link3">Connexion</a>
+                </li>
+                <li *ngIf="info.email">
+                    <a routerLink="/vendeur">{{info.email}} Mon espace vendeur</a>
+                </li>
+            </ul>
+           
+        </div>
+    </div>
 </div>
 
-<div *ngIf="info.email">
-    Connecté : {{info.email}}
-    <a routerLink="/vendeur">Mon espace vendeur</a>
-</div>
-
-<h1>Bienvenue sur la place de marché</h1>
 
 
-<h2>Chercher un produit :</h2>
+<div class="container" style="margin-top:200px">
 
-<div class="form-group">
-    <label for="ville">Ville</label>
-    <input type="text" class="form-control" name="ville" [(ngModel)]="ville.value" />
-    <div [hidden]="!ville.errors.required"></div>
-</div>
+    <h1 style="font-size:71px;font-family:marck script;text-align:center">
+        Bienvenue sur notre place de marché
+    </h1>
 
-<div class="form-group">
-    <label for="nom">nom</label>
-    <input type="text" class="form-control" name="nom" [(ngModel)]="nom.value" />
-    <div [hidden]="!nom.errors.required"></div>
-</div>
 
-<div class="form-group">
-    <button (click)="rechercher()">Rechercher</button>
+    <div style="margin-top:80px;">
+        <form class="form-inline" style="text-align:center" >
+            <div class="form-group" style="text-align:left;">
+                <label for="ville" style=margin-left:30px;>Lieu</label><br/>
+                <input type="text" class="form-control" name="ville" placeholder="lieu" [(ngModel)]="ville.value" />
+                <div [hidden]="!ville.errors.required"></div>
+            </div>
+
+            <div class="form-group" style="text-align:left">
+                <label for="nom" style=margin-left:30px;>Produit</label><br/>
+                <input type="text" class="form-control" name="nom" placeholder="produit" [(ngModel)]="nom.value" />
+                <div [hidden]="!nom.errors.required"></div>
+            </div>
+
+            <div class="form-group" style="text-align:left;position:relative">
+                <label for="date" style=margin-left:30px;>Date</label><br/>
+                <input type='text' class="form-control datetimepicker4" name="date" placeholder="date"/>
+            </div>
+
+
+            <div class="form-group" style="margin-left:50px">
+                <br/>
+                <button (click)="rechercher()" class="btn btn-primary" >Rechercher</button>
+            </div>
+        </form>
+    </div>
+    
 </div>
