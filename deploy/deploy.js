@@ -4,6 +4,7 @@ const fse = require('fs-extra')
 const path = require('path');
 const child_process = require('child_process');
 const rimraf = require('rimraf');
+const findRemoveSync = require('find-remove');
 
 /*
 repertoire de source ~/market-place
@@ -37,15 +38,24 @@ files.forEach((f) => {
 child_process.execSync('npm install', { cwd: sourceClientDir, stdio:[0,1,2] });
 */
 //child_process.execSync('ng build --target=production --environment=prod', { cwd: sourceClientDir, stdio:[0,1,2] });
+
+console.log('copy dist angular');
 fse.copySync(path.join(sourceClientDir, 'dist'), path.join(targetDir, 'client', 'dist'));
 
 /*
 child_process.execSync('npm install', { cwd: sourceServerDir, stdio:[0,1,2] });
 child_process.execSync('tsc', { cwd: sourceServerDir, stdio:[0,1,2] });
 */
+
+console.log('copy out-tsc du serveur');
 fse.copySync(path.join(sourceServerDir, 'out-tsc'), path.join(targetDir, 'server', 'out-tsc'));
 
+console.log('adaptation package.json');
 // package.json : adaptation du "start""
 var packageJson = fs.readFileSync(path.join(sourceServerDir, 'package.json'), 'utf8');
 packageJson = packageJson.replace('"start": "node ./out-tsc/start.js"', '"start": "node ./server/out-tsc/start.js"');
 fs.writeFileSync(path.join(targetDir, 'package.json'), packageJson);
+
+console.log('remove all .map');
+findRemoveSync(targetDir, {extensions: ['.map']})
+
