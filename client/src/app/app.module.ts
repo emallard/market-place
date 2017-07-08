@@ -10,6 +10,7 @@ import { SeConnecterComponent } from "app/public/se-connecter/se-connecter.compo
 import { PublicModule } from "app/public/public.module";
 import { AccueilComponent } from "app/public/accueil/accueil.component";
 import { VendeurModule } from "app/vendeur/vendeur.module";
+import { ClientModule } from "app/client/client.module";
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { VendeurModule } from "app/vendeur/vendeur.module";
     FormsModule,
     RouterModule,
     PublicModule,
-    VendeurModule
+    VendeurModule,
+    ClientModule
   ],
   providers: [
     AlertService

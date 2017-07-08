@@ -1,21 +1,54 @@
-<div class="col-md-6 col-md-offset-3">
-    <h2>Login</h2>
-    <div>
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="text" class="form-control" name="email" [(ngModel)]="email.value" />
-            <div [hidden]="!email.errors.required">
-              Email is required
+<div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a href="/" class="navbar-brand">LOGO</a>
+        </div>
+    </div>
+</div>
+
+<div class="container" style="margin-top:150px">
+
+    <div class="col-md-6 col-md-offset-3">
+  
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" class="form-control" name="email" placeholder="email" [(ngModel)]="email.value" />
+                <div [hidden]="!email.errors.required">
+                Veuillez saisir votre adresse email
+                </div>
+            </div>
+        </div>    
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="password">Mot de passe</label>
+                <input type="password" class="form-control" name="password" placeholder="mot de passe" [(ngModel)]="password.value"/>
+                <div [hidden]="!password.errors.required">
+                Veuillez saisir un mot de passe
+                </div>
+            </div>
+        </div>
+ 
+        <div class="col-md-12">
+            <div class="form-group">
+               <div class="checkbox">
+                    <label>
+                        <input type="checkbox" value="" [(ngModel)]="seSouvenirDeMoi">
+                        Se souvenir de moi
+                    </label>
+                </div>
             </div>
         </div>
 
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" name="password" [(ngModel)]="password.value"/>
+        <div class="col-md-12" style="margin-top:20px;">
+            <div class="form-group">
+                <button [disabled]="loading" (click)="seConnecter()" class="btn btn-primary btn-block">Se connecter</button>
+            </div>
+        </div>
 
+        <div class="col-md-12">
+            <a href="mot-de-passe-oublie">Mot de passe oublié ?</a>
         </div>
-        <div class="form-group">
-            <button [disabled]="loading" (click)="seConnecter()" class="btn btn-primary">Se connecter</button>
-        </div>
+
     </div>
 </div>

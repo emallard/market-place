@@ -13,6 +13,7 @@ export class SeConnecterComponent implements OnInit {
 
   email = new FormInput();
   password = new FormInput();
+  seSouvenirDeMoi = true;
   returnUrl:string;
   loading = false;
 

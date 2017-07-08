@@ -9,6 +9,7 @@ import { SeConnecterComponent } from './se-connecter/se-connecter.component';
 import { AccueilComponent } from './accueil/accueil.component';
 import { PublicController, UserController } from "app/_api/api";
 import { LandingComponent } from './landing/landing.component';
+import { InscriptionComponent } from './inscription/inscription.component';
 
 
 @NgModule({
@@ -22,7 +23,7 @@ import { LandingComponent } from './landing/landing.component';
       {path: '', component:AccueilComponent},
     ]),
   ],
-  declarations: [RechercheProduitsComponent, DevenirVendeurComponent, SeConnecterComponent, AccueilComponent, LandingComponent],
+  declarations: [RechercheProduitsComponent, DevenirVendeurComponent, SeConnecterComponent, AccueilComponent, LandingComponent, InscriptionComponent],
   providers: [PublicController, UserController]
 })
 export class PublicModule { }
