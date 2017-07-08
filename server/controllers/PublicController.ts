@@ -11,16 +11,17 @@ import { Persistance } from "../db/Persistance";
 import { Utilisateur } from "../_model/Utilisateur";
 import { ObjectID } from "mongodb";
 import { UtilisateurConnecte } from "../UtilisateurConnecte";
-import { Produit } from "../_model/Produit";
+import { Annonce } from "../_model/Annonce";
 
 export class PublicController
 {
     utilisateurConnecte: UtilisateurConnecte;
 
-    async rechercherProduits(recherche:RechercheProduit) : Promise<Produit[]>
+    async rechercherAnnonces(recherche:RechercheProduit) : Promise<Annonce[]>
     {
-        var produits = 
-        await Persistance.produits().find({$text:{$search:recherche.nom}}).toArray();
-        return produits;
+        var annonces = 
+        //await Persistance.annonces().find({$text:{$search:recherche.nom}}).toArray();
+        await Persistance.annonces().find({$text:{$search:recherche.nom}}).toArray();
+        return annonces;
     }
 }

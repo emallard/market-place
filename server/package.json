@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "start": "node ./out-tsc/start.js",
+    "export" : "node ./out-tsc/exportApi.js && node ./out-tsc/exportApiTest.js && node ./out-tsc/exportRoutes.js",
     "exportApi": "node ./out-tsc/exportApi.js",
+    "exportApiTest": "node ./out-tsc/exportApiTest.js",
     "exportRoutes": "node ./out-tsc/exportRoutes.js",
     "nodemon": "nodemon ./out-tsc/start.js"
   },

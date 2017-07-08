@@ -43,8 +43,8 @@ export = app;
     })
 */
     var store = undefined;
-    //if (Config.singleton().utiliserMongoStorePourLaSession)
-    //    store = new MongoStore({db: Persistance.mongodb()});
+    if (Config.singleton().utiliserMongoStorePourLaSession)
+        store = new MongoStore({db: Persistance.mongodb()});
 
     app.use(ExpressSession({
         secret: 'sddsf fmkpojcncdsyusdb',

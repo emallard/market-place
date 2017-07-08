@@ -1,0 +1,17 @@
+
+
+<div class="form-group">
+    <a class="btn btn-primary" routerLink="/vendeur/ajouter-produit">Ajouter une annonce</a>
+</div>
+
+
+<h2>Vos annonces</h2>
+
+<ul *ngFor="let a of annonces">
+  <li>
+    <b>Lieu : </b> {{ a.lieu }} 
+    <b>Date : </b> {{ a.date }}
+    <b>Reference : </b> {{ a.titreReference }}
+  </li>
+</ul>
+

@@ -6,6 +6,7 @@ import { TableauDeBordComponent } from './tableau-de-bord/tableau-de-bord.compon
 import { VendeurController } from "app/_api/api";
 import { AjouterProduitComponent } from './ajouter-produit/ajouter-produit.component';
 import { HomeComponent } from './home/home.component';
+import { AnnoncesComponent } from './annonces/annonces.component';
 
 
 @NgModule({
@@ -16,7 +17,7 @@ import { HomeComponent } from './home/home.component';
       {path: 'vendeur', component:TableauDeBordComponent,
         children: [
             { path: '',  component: HomeComponent },
-            { path: 'annonces',  component: AjouterProduitComponent },
+            { path: 'annonces',  component: AnnoncesComponent },
         ]
       },
       {path: 'vendeur/produit/:id', component:TableauDeBordComponent},
@@ -24,7 +25,7 @@ import { HomeComponent } from './home/home.component';
     ])
   ],
   
-  declarations: [TableauDeBordComponent, AjouterProduitComponent, HomeComponent],
+  declarations: [TableauDeBordComponent, AjouterProduitComponent, HomeComponent, AnnoncesComponent],
 
   providers: [VendeurController]
 })

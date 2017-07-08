@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { VendeurController, Produit } from "app/_api/api";
+import { VendeurController, Annonce, Reference, AjoutAnnonce } from "app/_api/api";
 import { FormInput } from "app/_core/forms";
 import { Router } from "@angular/router";
+declare var $;
 
 @Component({
   selector: 'app-ajouter-produit',
@@ -10,8 +11,13 @@ import { Router } from "@angular/router";
 })
 export class AjouterProduitComponent implements OnInit {
 
-  nom = new FormInput();
-  prix = new FormInput();
+  lieu = new FormInput();
+  date = new FormInput();
+  produit = new FormInput();
+  idReference = new FormInput();
+
+  references:Reference[];
+
   loading = false;
   
   constructor(
@@ -19,16 +25,24 @@ export class AjouterProduitComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
+
+
+    this.vendeurController.listerReferences().then(result => this.references = result);
+  }
+  
+  ngAfterViewInit() {
+    $('.datetimepicker4').datetimepicker({locale: 'fr', format: 'DD/MM/YYYY'});
   }
 
-  async ajouterProduit()
+  async ajouterAnnonce()
   {
-    var nouveauProduit = new Produit();
-    nouveauProduit.nom = this.nom.value;
-    nouveauProduit.prix = parseFloat(this.prix.value);
+    var ajout = new AjoutAnnonce();
+    ajout.lieu = this.lieu.value;
+    ajout.date =  $('.datetimepicker4').data("DateTimePicker").date();
+    ajout.idReference = {_id: this.idReference.value}
 
-    await this.vendeurController.ajouterProduits(nouveauProduit);
-    this.router.navigate(['/vendeur']);
+    await this.vendeurController.ajouterAnnonce(ajout);
+    this.router.navigate(['/vendeur/annonces']);
   }
 
 }

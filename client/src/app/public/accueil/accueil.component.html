@@ -19,8 +19,9 @@
                 </li>
             </ul>
 
-            <div class="nav navbar-nav navbar-right">
-                <a routerLink="/devenir-vendeur" class="btn btn-info btn-navbar" role="button">Devenir Vendeur</a>
+            <div class="nav navbar-nav navbar-right" >
+                <a *ngIf="!info.email" routerLink="/devenir-vendeur" class="btn btn-info btn-navbar" role="button">Devenir Vendeur</a>
+                <a *ngIf="info.email" routerLink="/vendeur" class="btn btn-info btn-navbar">Mon espace vendeur : {{info.email}}</a>
             </div>
 
 
@@ -31,9 +32,6 @@
                 </li>
                 <li *ngIf="!info.email">
                     <a [routerLink]="['/se-connecter']" class="link3">Connexion</a>
-                </li>
-                <li *ngIf="info.email">
-                    <a routerLink="/vendeur">{{info.email}} Mon espace vendeur</a>
                 </li>
             </ul>
            

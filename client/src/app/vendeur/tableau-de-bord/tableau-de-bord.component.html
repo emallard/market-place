@@ -20,42 +20,15 @@
 
 <div class="container" style="margin-top:200px">
 
-  <div *ngIf="utilisateur">
-    Bienvenue {{utilisateur.profil.prenom}} {{utilisateur.profil.nom}}
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a routerLink="/vendeur">Tableau de bord</a></li>
+    <li role="presentation" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a routerLink="/vendeur/annonces" >Annonces</a></li>
+    <!--<li role="presentation" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a routerLink="/vendeur/profil" >Profil</a></li>
+    -->
+  </ul>
+
+  <div class="container" style="margin-top:50px">
+      <router-outlet></router-outlet>
   </div>
 </div>
 
-<!-- Nav tabs -->
-<ul class="nav nav-tabs" role="tablist">
-  <li role="presentation" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a routerLink="/vendeur">Tableau de bord</a></li>
-  <li role="presentation" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a routerLink="/vendeur/annonces" >Annonces</a></li>
-  <li role="presentation"><a href="#messages">Commandes</a></li>
-  <li role="presentation"><a href="#settings">Profil</a></li>
-</ul>
-
-<div class="tab-content">
-  <router-outlet></router-outlet>
-</div>
-<!--
-<div class="tab-content">
-  <div role="tabpanel" class="tab-pane active">Tableau de bord</div>
-  <div role="tabpanel" class="tab-pane">Annonces</div>
-  <div role="tabpanel" class="tab-pane">Commandes</div>
-  <div role="tabpanel" class="tab-pane">Profil</div>
-</div>
--->
-
-<!--
-Mes produits:<br>
-
-<ul *ngFor="let p of produits">
-  <li>
-    {{ p.nom }} {{p.prix}}
-  </li>
-</ul>
-
-<div class="form-group">
-    <a routerLink="/vendeur/ajouter-produit">Ajouter un produit</a>
-</div>
-
--->

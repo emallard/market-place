@@ -3,7 +3,7 @@ import * as webdriver from "selenium-webdriver";
 import * as firefox from "selenium-webdriver/firefox";
 import { By, ThenableWebDriver } from "selenium-webdriver";
 import { PageBase } from "./PageBase";
-import { ApiCall } from "../api/api";
+import { ApiCall } from "../api/ApiCall";
 import { Aide } from "../features/aide/Aide";
 
 export class Workspace
@@ -31,8 +31,8 @@ export class Workspace
 
     changerPage<T extends PageBase>(type:{new(w:Workspace):T})
     {
-        console.log('changer de page ' + this.driver)
         var p = new type(this);
+        console.log('changer de page ' + typeof(p).toString())
         this._pageCourante = p;
         return p;
     }

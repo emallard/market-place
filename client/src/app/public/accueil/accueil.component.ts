@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PublicController, InformationUtilisateur, UserController, RechercheProduit, ApiProduit } from "app/_api/api";
+import { PublicController, InformationUtilisateur, UserController, RechercheProduit, ApiProduit, Annonce } from "app/_api/api";
 import { FormInput } from "app/_core/forms";
 declare var $;
 
@@ -14,7 +14,7 @@ export class AccueilComponent implements OnInit {
   test = true;
   ville = new FormInput();
   nom = new FormInput();
-  produitsTrouves: ApiProduit[] = [];
+  resultats: Annonce[] = [];
   
   constructor(
     private userController:UserController,
@@ -32,8 +32,8 @@ export class AccueilComponent implements OnInit {
   async rechercher() {
     var recherche = new RechercheProduit();
     recherche.nom = this.nom.value;
-    this.produitsTrouves = await this.publicController.rechercherProduits(recherche);
-    console.log(this.produitsTrouves);
+    this.resultats = await this.publicController.rechercherAnnonces(recherche);
+    console.log(this.resultats);
   }
 
 }

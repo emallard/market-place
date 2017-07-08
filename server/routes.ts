@@ -37,9 +37,37 @@ res.send(JSON.stringify(retour));
 });
 
 
+router.post("/AdminController/ajouterReference", async function (req: express.Request, res: express.Response, next: express.NextFunction)
+{ var c = new AdminController();
+var session = new Session();
+session.req = req;
+c['session'] = session
+var utilisateurConnecte = new UtilisateurConnecte();
+if (req.session.userId == null) utilisateurConnecte.id = null;
+else utilisateurConnecte.id = new ObjectID(req.session.userId)
+c['utilisateurConnecte'] = utilisateurConnecte;
+var retour = await c.ajouterReference(<any> req.body);
+res.send(JSON.stringify(retour));
+});
+
+
+router.post("/AdminController/listeReferences", async function (req: express.Request, res: express.Response, next: express.NextFunction)
+{ var c = new AdminController();
+var session = new Session();
+session.req = req;
+c['session'] = session
+var utilisateurConnecte = new UtilisateurConnecte();
+if (req.session.userId == null) utilisateurConnecte.id = null;
+else utilisateurConnecte.id = new ObjectID(req.session.userId)
+c['utilisateurConnecte'] = utilisateurConnecte;
+var retour = await c.listeReferences();
+res.send(JSON.stringify(retour));
+});
+
+
 import {PublicController} from "./controllers/PublicController"
 
-router.post("/PublicController/rechercherProduits", async function (req: express.Request, res: express.Response, next: express.NextFunction)
+router.post("/PublicController/rechercherAnnonces", async function (req: express.Request, res: express.Response, next: express.NextFunction)
 { var c = new PublicController();
 var session = new Session();
 session.req = req;
@@ -48,7 +76,7 @@ var utilisateurConnecte = new UtilisateurConnecte();
 if (req.session.userId == null) utilisateurConnecte.id = null;
 else utilisateurConnecte.id = new ObjectID(req.session.userId)
 c['utilisateurConnecte'] = utilisateurConnecte;
-var retour = await c.rechercherProduits(<any> req.body);
+var retour = await c.rechercherAnnonces(<any> req.body);
 res.send(JSON.stringify(retour));
 });
 
@@ -127,7 +155,7 @@ res.send(JSON.stringify(retour));
 
 import {VendeurController} from "./controllers/VendeurController"
 
-router.post("/VendeurController/tousLesProduits", async function (req: express.Request, res: express.Response, next: express.NextFunction)
+router.post("/VendeurController/tousLesAnnonces", async function (req: express.Request, res: express.Response, next: express.NextFunction)
 { var c = new VendeurController();
 var session = new Session();
 session.req = req;
@@ -136,12 +164,12 @@ var utilisateurConnecte = new UtilisateurConnecte();
 if (req.session.userId == null) utilisateurConnecte.id = null;
 else utilisateurConnecte.id = new ObjectID(req.session.userId)
 c['utilisateurConnecte'] = utilisateurConnecte;
-var retour = await c.tousLesProduits();
+var retour = await c.tousLesAnnonces();
 res.send(JSON.stringify(retour));
 });
 
 
-router.post("/VendeurController/ajouterProduits", async function (req: express.Request, res: express.Response, next: express.NextFunction)
+router.post("/VendeurController/ajouterAnnonce", async function (req: express.Request, res: express.Response, next: express.NextFunction)
 { var c = new VendeurController();
 var session = new Session();
 session.req = req;
@@ -150,7 +178,21 @@ var utilisateurConnecte = new UtilisateurConnecte();
 if (req.session.userId == null) utilisateurConnecte.id = null;
 else utilisateurConnecte.id = new ObjectID(req.session.userId)
 c['utilisateurConnecte'] = utilisateurConnecte;
-var retour = await c.ajouterProduits(<any> req.body);
+var retour = await c.ajouterAnnonce(<any> req.body);
+res.send(JSON.stringify(retour));
+});
+
+
+router.post("/VendeurController/listerReferences", async function (req: express.Request, res: express.Response, next: express.NextFunction)
+{ var c = new VendeurController();
+var session = new Session();
+session.req = req;
+c['session'] = session
+var utilisateurConnecte = new UtilisateurConnecte();
+if (req.session.userId == null) utilisateurConnecte.id = null;
+else utilisateurConnecte.id = new ObjectID(req.session.userId)
+c['utilisateurConnecte'] = utilisateurConnecte;
+var retour = await c.listerReferences();
 res.send(JSON.stringify(retour));
 });
 
@@ -195,6 +237,48 @@ if (req.session.userId == null) utilisateurConnecte.id = null;
 else utilisateurConnecte.id = new ObjectID(req.session.userId)
 c['utilisateurConnecte'] = utilisateurConnecte;
 var retour = await c.emailsEnvoyes();
+res.send(JSON.stringify(retour));
+});
+
+
+router.post("/TestController/seConnecterEnAdmin", async function (req: express.Request, res: express.Response, next: express.NextFunction)
+{ var c = new TestController();
+var session = new Session();
+session.req = req;
+c['session'] = session
+var utilisateurConnecte = new UtilisateurConnecte();
+if (req.session.userId == null) utilisateurConnecte.id = null;
+else utilisateurConnecte.id = new ObjectID(req.session.userId)
+c['utilisateurConnecte'] = utilisateurConnecte;
+var retour = await c.seConnecterEnAdmin();
+res.send(JSON.stringify(retour));
+});
+
+
+router.post("/TestController/seConnecter", async function (req: express.Request, res: express.Response, next: express.NextFunction)
+{ var c = new TestController();
+var session = new Session();
+session.req = req;
+c['session'] = session
+var utilisateurConnecte = new UtilisateurConnecte();
+if (req.session.userId == null) utilisateurConnecte.id = null;
+else utilisateurConnecte.id = new ObjectID(req.session.userId)
+c['utilisateurConnecte'] = utilisateurConnecte;
+var retour = await c.seConnecter(<any> req.body);
+res.send(JSON.stringify(retour));
+});
+
+
+router.post("/TestController/seDeconnecter", async function (req: express.Request, res: express.Response, next: express.NextFunction)
+{ var c = new TestController();
+var session = new Session();
+session.req = req;
+c['session'] = session
+var utilisateurConnecte = new UtilisateurConnecte();
+if (req.session.userId == null) utilisateurConnecte.id = null;
+else utilisateurConnecte.id = new ObjectID(req.session.userId)
+c['utilisateurConnecte'] = utilisateurConnecte;
+var retour = await c.seDeconnecter(<any> req.body);
 res.send(JSON.stringify(retour));
 });
 

@@ -1,11 +1,12 @@
 import { Db } from "mongodb";
 import mongodb = require("mongodb");
 import config = require('../config');
-import { Produit } from "../_model/Produit";
 import { Utilisateur } from "../_model/Utilisateur";
 import { Email } from "../_api/Email";
 import { Config } from "../config";
 import { TokenMotDePasse } from "../_model/TokenMotDePasse";
+import { Reference } from "../_model/Reference";
+import { Annonce } from "../_model/Annonce";
 
 export class Persistance {
 
@@ -27,10 +28,20 @@ export class Persistance {
     {
         return Persistance.singleton()._mongodb.collection('utilisateurs');
     }
-
+/*
     static produits():mongodb.Collection<Produit>
     {
         return Persistance.singleton()._mongodb.collection('produits');
+    }
+*/
+    static references():mongodb.Collection<Reference>
+    {
+        return Persistance.singleton()._mongodb.collection('references');
+    }
+
+    static annonces():mongodb.Collection<Annonce>
+    {
+        return Persistance.singleton()._mongodb.collection('annonces');
     }
 
     static emails():mongodb.Collection<Email>
@@ -63,7 +74,7 @@ export class Persistance {
 
     configure()
     {
-        Persistance.produits().createIndex({nom:"text"});
+        Persistance.annonces().createIndex({titreReference:"text"});
     }
 
     collection<T>(type:{new():T}) : mongodb.Collection<T>

@@ -1,6 +1,6 @@
 
 
-import { UserController, Inscription, Produit } from "../../api/api";
+import { UserController, Inscription, Reference } from "../../api/api";
 
 export class Aide
 {
@@ -19,12 +19,13 @@ export class Aide
         return this.emailVendeur;
     }
 
-    compteurProduit = 0;
-    unNouveauProduit():Produit
+    compteurReference = 0;
+    unNouveauReference():Reference
     {
-        var p = new Produit();
-        p.nom = 'Produit' + this.compteurProduit++ ;
-        p.prix = 1;
+        var p = new Reference();
+        p.titre = 'Ref' + this.compteurReference ;
+        p.texte = 'texte de la ref' + this.compteurReference ;
+        this.compteurReference++;
         return p;
     }
 }

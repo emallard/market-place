@@ -6,13 +6,13 @@ import { TestRunner } from "../TestRunner";
 import { Persistance } from "../db/Persistance";
 import { Connexion } from "../_api/Connexion";
 import { VendeurController } from "./VendeurController";
-import { Produit } from "../_model/Produit";
 import { Vendeur } from "../_model/Vendeur";
 import { Session } from "../Session";
 import { Impersonation } from "../_api/Impersonation";
 import { Email } from "../_api/Email";
 import { AdminController } from "./AdminController";
 import { Utilisateur } from "../_model/Utilisateur";
+import { Reference } from "../_model/Reference";
 
 
 export class TestController
@@ -43,6 +43,24 @@ export class TestController
     async emailsEnvoyes() : Promise<Email[]>
     {
         return await Persistance.emails().find().toArray();
+    }
+
+    async seConnecterEnAdmin() : Promise<void>
+    {
+        await this.seConnecter('admin@example.com');
+    }
+
+    async seConnecter(email:string) : Promise<void>
+    {
+        var utilisateurs = await Persistance.utilisateurs().find({email: email}, { _id: 1}).toArray();
+        if (utilisateurs.length == 0)
+            throw "Pas d'utilisateur trouvé pour cet email";
+        this.session.setUserId(utilisateurs[0]._id.toHexString());
+    }
+
+    async seDeconnecter(email:string) : Promise<void>
+    {
+        this.session.setUserId(null);
     }
 
     /*

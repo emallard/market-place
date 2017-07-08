@@ -2,7 +2,7 @@ import { binding, given, then, before } from "cucumber-tsflow";
 import * as Request from 'request-promise-native';
 import { Workspace } from "../../app/Workspace";
 import { SeConnecter } from "../../app/public/SeConnecter";
-import { UserController, Inscription, TestController, VendeurController } from "../../api/api";
+import { UserController, Inscription, TestController, VendeurController, Reference, AdminController } from "../../api/api";
 import { TableauDeBord } from "../../app/vendeur/TableauDeBord";
 
 
@@ -16,7 +16,7 @@ export class DonneesSteps {
     }
 
     @given(/^un site vide$/)
-    async givenPageDAccueil() {
+    async givenUnSiteVide() {
         await Request.post('http://localhost:3000/TestController/donneesVides');
     }
     
@@ -39,6 +39,7 @@ export class DonneesSteps {
         this.workspace.changerPage(TableauDeBord);
     }
 
+/*
     @given(/^le produit ayant pour nom "([^"]*)"/)
     async givenLeProduitAyantPourNom(nom:string) {
         var emailVendeur = await this.workspace.aide.unVendeur();
@@ -47,7 +48,16 @@ export class DonneesSteps {
         var vendeurControlleur = new VendeurController();
         var p = this.workspace.aide.unNouveauProduit();
         p.nom = nom;
-        await vendeurControlleur.ajouterProduits(p);
+        await vendeurControlleur.ajouterAnnonce(p);
+    }
+*/
+    @given(/^la reference "([^"]*)"$/)
+    async givenLaReference(titre:string) {
+        var r = new Reference();
+        r.titre = titre ;
+        r.texte = 'texte' ;
+        await new TestController().seConnecterEnAdmin();
+        await new AdminController().ajouterReference(r);
     }
 
 }

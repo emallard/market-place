@@ -40,15 +40,6 @@ export class Email{
 }
 
 @Injectable()
-export class Produit{ 
-    _id:ObjectID;
-    idUtilisateur:ObjectID;
-    nom:string;
-    prix:number;
-    category:string;
-}
-
-@Injectable()
 export class Vendeur{ 
     _id:ObjectID;
 }
@@ -57,6 +48,7 @@ export class Vendeur{
 export class ProfilUtilisateur{ 
     nom:string;
     prenom:string;
+    genre:string;
 }
 
 @Injectable()
@@ -79,6 +71,24 @@ export class TokenMotDePasse{
 }
 
 @Injectable()
+export class Reference{ 
+    _id:ObjectID;
+    titre:string;
+    texte:string;
+    category:string;
+}
+
+@Injectable()
+export class Annonce{ 
+    _id:ObjectID;
+    idUtilisateur:ObjectID;
+    lieu:string;
+    date:Date;
+    idReference:ObjectID;
+    titreReference:string;
+}
+
+@Injectable()
 export class RechercheEmailsEnvoyesA{ 
     aPartirDe:Date;
     jusquA:Date;
@@ -89,6 +99,8 @@ export class RechercheEmailsEnvoyesA{
 export class AdminController{ 
     rechercherEmailsEnvoyes(recherche:RechercheEmailsEnvoyesA)  : Promise<Email[]>{    return Api.appeler("AdminController/rechercherEmailsEnvoyes",recherche); }
     rechercherVendeurs()  : Promise<Utilisateur[]>{    return Api.appeler("AdminController/rechercherVendeurs",{}); }
+    ajouterReference(reference:Reference)  : Promise<void>{    return Api.appeler("AdminController/ajouterReference",reference); }
+    listeReferences()  : Promise<Reference[]>{    return Api.appeler("AdminController/listeReferences",{}); }
 }
 
 @Injectable()
@@ -118,11 +130,12 @@ export class InformationUtilisateur{
     email:string;
     estUnVendeur:boolean;
     estUnAdmin:boolean;
+    profil:ProfilUtilisateur;
 }
 
 @Injectable()
 export class PublicController{ 
-    rechercherProduits(recherche:RechercheProduit)  : Promise<Produit[]>{    return Api.appeler("PublicController/rechercherProduits",recherche); }
+    rechercherAnnonces(recherche:RechercheProduit)  : Promise<Annonce[]>{    return Api.appeler("PublicController/rechercherAnnonces",recherche); }
 }
 
 @Injectable()
@@ -153,9 +166,17 @@ export class UserController{
 }
 
 @Injectable()
+export class AjoutAnnonce{ 
+    date:Date;
+    lieu:string;
+    idReference:ObjectID;
+}
+
+@Injectable()
 export class VendeurController{ 
-    tousLesProduits()  : Promise<Produit[]>{    return Api.appeler("VendeurController/tousLesProduits",{}); }
-    ajouterProduits(produit:Produit)  : Promise<void>{    return Api.appeler("VendeurController/ajouterProduits",produit); }
+    tousLesAnnonces()  : Promise<Annonce[]>{    return Api.appeler("VendeurController/tousLesAnnonces",{}); }
+    ajouterAnnonce(ajout:AjoutAnnonce)  : Promise<void>{    return Api.appeler("VendeurController/ajouterAnnonce",ajout); }
+    listerReferences()  : Promise<Reference[]>{    return Api.appeler("VendeurController/listerReferences",{}); }
 }
 
 @Injectable()
@@ -168,4 +189,7 @@ export class TestController{
     donneesVides()  : Promise<void>{    return Api.appeler("TestController/donneesVides",{}); }
     impersonate(impersonation:Impersonation)  : Promise<void>{    return Api.appeler("TestController/impersonate",impersonation); }
     emailsEnvoyes()  : Promise<Email[]>{    return Api.appeler("TestController/emailsEnvoyes",{}); }
+    seConnecterEnAdmin()  : Promise<void>{    return Api.appeler("TestController/seConnecterEnAdmin",{}); }
+    seConnecter(email:string)  : Promise<void>{    return Api.appeler("TestController/seConnecter",email); }
+    seDeconnecter(email:string)  : Promise<void>{    return Api.appeler("TestController/seDeconnecter",email); }
 }

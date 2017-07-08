@@ -1,5 +1,5 @@
 
-
+/*
 import { ObjectID } from "mongodb";
 
 
@@ -11,3 +11,4 @@ export class Produit {
     prix:number;
     category:string;
 }
+*/
