@@ -10,7 +10,9 @@ import { Produit } from "../_model/Produit";
 import { Vendeur } from "../_model/Vendeur";
 import { Session } from "../Session";
 import { Impersonation } from "../_api/Impersonation";
-import { Email } from "../services/Email";
+import { Email } from "../_api/Email";
+import { AdminController } from "./AdminController";
+import { Utilisateur } from "../_model/Utilisateur";
 
 
 export class TestController
@@ -20,6 +22,14 @@ export class TestController
     async donneesVides() : Promise<void>
     {
         await Persistance.drop();
+
+        var utilisateur = new Utilisateur();
+        utilisateur.email = 'admin@example.com'
+        utilisateur.password = 'admin'; 
+        utilisateur.estUnAdmin = true;
+        utilisateur.dateInscription = new Date();
+        var insertedUser = await Persistance.utilisateurs().insertOne(utilisateur);
+        this.session.setUserId(insertedUser.insertedId.toHexString());
     }
 
     async impersonate(impersonation:Impersonation) : Promise<void>

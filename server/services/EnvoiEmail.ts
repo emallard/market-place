@@ -2,7 +2,7 @@
 import * as Nodemailer from 'nodemailer';
 
 import { Persistance } from "../db/Persistance";
-import { Email } from "./Email";
+import { Email } from "../_api/Email";
 import { Config } from "../config";
 
 

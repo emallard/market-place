@@ -17,8 +17,9 @@ import { ChangementDeMotDePasse } from "../_api/ChangementDeMotDePasse";
 import * as Crypto from 'crypto';
 import { TokenMotDePasse } from "../_model/TokenMotDePasse";
 import { EnvoiEmail } from "../services/EnvoiEmail";
-import { Email } from "../services/Email";
+import { Email } from "../_api/Email";
 import { Config } from "../config";
+import { ProfilUtilisateur } from "../_model/ProfilUtilisateur";
 
 export class UserController
 {
@@ -32,6 +33,16 @@ export class UserController
         var utilisateur = new Utilisateur();
         utilisateur.email = inscription.email;
         utilisateur.password = inscription.password; 
+        utilisateur.estUnVendeur = true;
+        utilisateur.dateInscription = new Date();
+
+        var profil = new ProfilUtilisateur();
+        profil.nom = inscription.nom;
+        profil.prenom = inscription.prenom;
+        profil.genre = inscription.genre;
+
+        utilisateur.profil = profil;
+        
         var insertedUser = await Persistance.utilisateurs().insertOne(utilisateur);
         this.session.setUserId(insertedUser.insertedId.toHexString());
     }
@@ -41,13 +52,16 @@ export class UserController
         var estConnecte = this.utilisateurConnecte.id != null;
 
         var information = new InformationUtilisateur();
+        information.estConnecte = estConnecte;
         if (estConnecte)
         {
             var trouvé = <Utilisateur> await Persistance.utilisateurs().findOne({
                 _id: this.utilisateurConnecte.id });
             
             information.email = trouvé.email;
-            information.estUnVendeur = trouvé.vendeur != null;
+            information.estUnVendeur = trouvé.estUnVendeur != null;
+            information.estUnAdmin = trouvé.estUnAdmin;
+            information.profil = trouvé.profil;
             console.log(information);
         }
 

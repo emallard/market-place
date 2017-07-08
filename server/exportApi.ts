@@ -18,6 +18,11 @@ function generateDocumentation(fileNames: string[], options: ts.CompilerOptions,
         _id:string;
     }
 
+    class Buffer
+    {
+
+    }
+    
     import { Injectable } from '@angular/core';
     import { Api } from "app/_core/api";
     `)

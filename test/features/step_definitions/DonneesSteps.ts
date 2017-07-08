@@ -25,8 +25,11 @@ export class DonneesSteps {
 
         var userController = new UserController();
         var inscription = new Inscription();
-        inscription.email = "vendeur@example.com";
-        inscription.password = "pass"; 
+        inscription.email = "bob.sinclar@example.com";
+        inscription.password = "password"; 
+        inscription.nom = "sinclar";
+        inscription.prenom = "bob";
+        inscription.genre = "homme";
         await userController.inscrireVendeur(inscription);
 
         var scpage = this.workspace.changerPage(SeConnecter);

@@ -38,6 +38,9 @@ export class ApiProduit{
 export class Inscription{ 
     email:string;
     password:string;
+    nom:string;
+    prenom:string;
+    genre:string;
 }
 
 export class InformationUtilisateur{ 

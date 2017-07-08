@@ -11,6 +11,7 @@ import { PublicModule } from "app/public/public.module";
 import { AccueilComponent } from "app/public/accueil/accueil.component";
 import { VendeurModule } from "app/vendeur/vendeur.module";
 import { ClientModule } from "app/client/client.module";
+import { AdminModule } from "app/admin/admin.module";
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ClientModule } from "app/client/client.module";
     RouterModule,
     PublicModule,
     VendeurModule,
-    ClientModule
+    ClientModule,
+    AdminModule,
   ],
   providers: [
     AlertService

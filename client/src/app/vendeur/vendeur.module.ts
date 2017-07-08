@@ -5,6 +5,7 @@ import { FormsModule }   from '@angular/forms';
 import { TableauDeBordComponent } from './tableau-de-bord/tableau-de-bord.component';
 import { VendeurController } from "app/_api/api";
 import { AjouterProduitComponent } from './ajouter-produit/ajouter-produit.component';
+import { HomeComponent } from './home/home.component';
 
 
 @NgModule({
@@ -12,13 +13,18 @@ import { AjouterProduitComponent } from './ajouter-produit/ajouter-produit.compo
     CommonModule,
     FormsModule,
     RouterModule.forRoot([
-      {path: 'vendeur', component:TableauDeBordComponent},
+      {path: 'vendeur', component:TableauDeBordComponent,
+        children: [
+            { path: '',  component: HomeComponent },
+            { path: 'annonces',  component: AjouterProduitComponent },
+        ]
+      },
       {path: 'vendeur/produit/:id', component:TableauDeBordComponent},
       {path: 'vendeur/ajouter-produit', component:AjouterProduitComponent},
     ])
   ],
   
-  declarations: [TableauDeBordComponent, AjouterProduitComponent],
+  declarations: [TableauDeBordComponent, AjouterProduitComponent, HomeComponent],
 
   providers: [VendeurController]
 })

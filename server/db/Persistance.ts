@@ -3,7 +3,7 @@ import mongodb = require("mongodb");
 import config = require('../config');
 import { Produit } from "../_model/Produit";
 import { Utilisateur } from "../_model/Utilisateur";
-import { Email } from "../services/Email";
+import { Email } from "../_api/Email";
 import { Config } from "../config";
 import { TokenMotDePasse } from "../_model/TokenMotDePasse";
 

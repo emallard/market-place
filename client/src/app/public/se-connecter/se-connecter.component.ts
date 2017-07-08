@@ -26,7 +26,7 @@ export class SeConnecterComponent implements OnInit {
   ngOnInit() {
     this.email.value='';
     this.password.value='';
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/vendeur';
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'];
   }
 
   async seConnecter()
@@ -40,7 +40,17 @@ export class SeConnecterComponent implements OnInit {
       }
     );
 
-    this.router.navigate([this.returnUrl]);
-    //this.ngZone.run(() => {this.router.navigate([this.returnUrl]);});
+    if (this.returnUrl != null)
+      this.router.navigate([this.returnUrl]);
+
+    var infos = await this.userController.informationUtilisateurConnecte();
+    if (infos.estUnAdmin)
+    {
+      this.router.navigate(['/admin']);
+    }
+    if (infos.estUnVendeur)
+    {
+      this.router.navigate(['/vendeur']);
+    }
   }
 }

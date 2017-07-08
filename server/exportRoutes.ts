@@ -19,6 +19,7 @@ function generateDocumentation(fileNames: string[], options: ts.CompilerOptions,
          module.exports = router;
          
          import {Session} from './Session';
+         import {UtilisateurConnecte} from './UtilisateurConnecte';
          import {ObjectID} from "mongodb";
          `);
 
@@ -126,7 +127,10 @@ function generateDocumentation(fileNames: string[], options: ts.CompilerOptions,
             +"var session = new Session();\n"
             +"session.req = req;\n"
             +"c['session'] = session\n"
-            +"c['utilisateurConnecte'] = (req.session.userId == null) ? {id:null} : {id: new ObjectID(req.session.userId)};\n"
+            +"var utilisateurConnecte = new UtilisateurConnecte();\n"
+            +"if (req.session.userId == null) utilisateurConnecte.id = null;\n"
+            +"else utilisateurConnecte.id = new ObjectID(req.session.userId)\n"
+            +"c['utilisateurConnecte'] = utilisateurConnecte;\n"
             +"var retour = await c."+name+"("+transferredParameters+");\n"
             +"res.send(JSON.stringify(retour));\n"
             +"});\n\n"

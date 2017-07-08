@@ -15,9 +15,7 @@ let router = express.Router();
 
 export class VendeurController
 {
-    utilisateurConnecte:UtilisateurConnecte
-
-    
+    utilisateurConnecte:UtilisateurConnecte;
 
     async tousLesProduits() : Promise<Produit[]>
     {

@@ -37,6 +37,13 @@ export class MySteps {
         await this.workspace.driver.findElement(By.css('[name="' + name + '"]')).sendKeys(valeur);
     }
 
+    @then(/^je clique sur le radio "([^"]*)"$/)
+    async jeCliqueSurLeRadio(valeur:string)
+    {
+        var xPath = By.xpath('//span[contains(text(),"'+ valeur +'")]');
+        await this.workspace.driver.findElement(xPath).click();
+    }
+
     @then(/^je clique sur "([^"]*)"$/)
     async jeCliqueSur(texte:string)
     {

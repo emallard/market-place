@@ -29,7 +29,13 @@ export class DevenirVendeurComponent implements OnInit {
   async devenirVendeur() {
       //console.log('devenirVendeur ',this.email.value , this.password.value , this.boutique.value);
 
-      var inscription: Inscription = {email : this.email.value , password: this.password.value};
+      var inscription: Inscription = {
+        email : this.email.value , 
+        password: this.password.value,
+        nom: this.nom.value,
+        prenom: this.prenom.value,
+        genre: this.genre.value,
+      };
       await this.userController.inscrireVendeur(inscription);
 
       this.router.navigate(['/vendeur']);
