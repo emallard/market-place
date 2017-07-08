@@ -51,15 +51,13 @@
     <div style="margin-top:80px;">
         <form class="form-inline" style="text-align:center" >
             <div class="form-group" style="text-align:left;">
-                <label for="ville" style=margin-left:30px;>Lieu</label><br/>
-                <input type="text" class="form-control" name="ville" placeholder="lieu" [(ngModel)]="ville.value" />
-                <div [hidden]="!ville.errors.required"></div>
+                <label for="lieu" style=margin-left:30px;>Lieu</label><br/>
+                <input type="text" class="form-control" name="lieu" placeholder="lieu" [(ngModel)]="lieu.value" />
             </div>
 
             <div class="form-group" style="text-align:left">
-                <label for="nom" style=margin-left:30px;>Produit</label><br/>
-                <input type="text" class="form-control" name="nom" placeholder="produit" [(ngModel)]="nom.value" />
-                <div [hidden]="!nom.errors.required"></div>
+                <label for="reference" style=margin-left:30px;>Produit</label><br/>
+                <input type="text" class="form-control" name="reference" placeholder="produit" [(ngModel)]="reference.value" />
             </div>
 
             <div class="form-group" style="text-align:left;position:relative">
@@ -73,6 +71,17 @@
                 <button (click)="rechercher()" class="btn btn-primary" >Rechercher</button>
             </div>
         </form>
+    </div>
+
+    <div>
+        <h2>Resultats</h2>
+        <ul *ngFor="let a of annonces">
+            <li>
+                <b>Lieu : </b> {{ a.lieu }} 
+                <b>Date : </b> {{ a.date }}
+                <b>Reference : </b> {{ a.titreReference }}
+            </li>
+        </ul>
     </div>
     
 </div>

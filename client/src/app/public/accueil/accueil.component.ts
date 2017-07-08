@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PublicController, InformationUtilisateur, UserController, RechercheProduit, ApiProduit, Annonce } from "app/_api/api";
+import { PublicController, InformationUtilisateur, UserController, RechercheAnnonce, ApiProduit, Annonce } from "app/_api/api";
 import { FormInput } from "app/_core/forms";
 declare var $;
 
@@ -12,9 +12,12 @@ export class AccueilComponent implements OnInit {
 
   info = new InformationUtilisateur();
   test = true;
-  ville = new FormInput();
-  nom = new FormInput();
-  resultats: Annonce[] = [];
+
+  lieu = new FormInput();
+  date = new FormInput();
+  reference = new FormInput();
+  
+  annonces: Annonce[] = [];
   
   constructor(
     private userController:UserController,
@@ -30,10 +33,13 @@ export class AccueilComponent implements OnInit {
   }
 
   async rechercher() {
-    var recherche = new RechercheProduit();
-    recherche.nom = this.nom.value;
-    this.resultats = await this.publicController.rechercherAnnonces(recherche);
-    console.log(this.resultats);
+    var recherche = new RechercheAnnonce();
+    recherche.lieu = this.lieu.value;
+    recherche.date = $('.datetimepicker4').data("DateTimePicker").date();
+    recherche.reference = this.reference.value;
+
+    this.annonces = await this.publicController.rechercherAnnonces(recherche);
+    console.log(this.annonces);
   }
 
 }

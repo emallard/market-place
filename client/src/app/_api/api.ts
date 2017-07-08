@@ -104,9 +104,10 @@ export class AdminController{
 }
 
 @Injectable()
-export class RechercheProduit{ 
-    nom:string;
-    boutique:string;
+export class RechercheAnnonce{ 
+    lieu:string;
+    date:Date;
+    reference:string;
 }
 
 @Injectable()
@@ -135,7 +136,7 @@ export class InformationUtilisateur{
 
 @Injectable()
 export class PublicController{ 
-    rechercherAnnonces(recherche:RechercheProduit)  : Promise<Annonce[]>{    return Api.appeler("PublicController/rechercherAnnonces",recherche); }
+    rechercherAnnonces(recherche:RechercheAnnonce)  : Promise<Annonce[]>{    return Api.appeler("PublicController/rechercherAnnonces",recherche); }
 }
 
 @Injectable()

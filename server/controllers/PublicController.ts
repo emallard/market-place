@@ -3,7 +3,7 @@ import mongodb = require("mongodb");
 import bodyParser = require("body-parser");
 import jwt = require('jsonwebtoken');
 import config = require('../config');
-import { RechercheProduit } from "../_api/RechercheProduit";
+import { RechercheAnnonce } from "../_api/RechercheAnnonce";
 import { ApiProduit } from "../_api/ApiProduit";
 import { Inscription } from "../_api/Inscription";
 import { InformationUtilisateur } from "../_api/InformationUtilisateur";
@@ -17,11 +17,17 @@ export class PublicController
 {
     utilisateurConnecte: UtilisateurConnecte;
 
-    async rechercherAnnonces(recherche:RechercheProduit) : Promise<Annonce[]>
+    async rechercherAnnonces(recherche:RechercheAnnonce) : Promise<Annonce[]>
     {
+        var requete:any = {};
+        if (recherche.lieu != null && recherche.lieu != '')
+            requete.lieu = recherche.lieu;
+        if (recherche.reference != null && recherche.reference != '')
+            requete.$text = {$search:recherche.reference};
+
         var annonces = 
-        //await Persistance.annonces().find({$text:{$search:recherche.nom}}).toArray();
-        await Persistance.annonces().find({$text:{$search:recherche.nom}}).toArray();
+        //await Persistance.annonces().find({$text:{$search:recherche.reference}}).toArray();
+        await Persistance.annonces().find(requete).toArray();
         return annonces;
     }
 }

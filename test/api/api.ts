@@ -92,9 +92,10 @@ export class AdminController{
     listeReferences()  : Promise<Reference[]>{    return ApiCall.callApi("AdminController/listeReferences",{}); }
 }
 
-export class RechercheProduit{ 
-    nom:string;
-    boutique:string;
+export class RechercheAnnonce{ 
+    lieu:string;
+    date:Date;
+    reference:string;
 }
 
 export class ApiProduit{ 
@@ -119,7 +120,7 @@ export class InformationUtilisateur{
 }
 
 export class PublicController{ 
-    rechercherAnnonces(recherche:RechercheProduit)  : Promise<Annonce[]>{    return ApiCall.callApi("PublicController/rechercherAnnonces",recherche); }
+    rechercherAnnonces(recherche:RechercheAnnonce)  : Promise<Annonce[]>{    return ApiCall.callApi("PublicController/rechercherAnnonces",recherche); }
 }
 
 export class Connexion{ 

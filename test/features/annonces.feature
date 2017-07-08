@@ -5,6 +5,7 @@ Fonctionnalité: Ajout d'annonces
 
    Scénario: Ajouter une annonce
       Soit la reference "Shampoing nature"
+      Soit la reference "Thé vert"
       Etant donné un nouveau vendeur sur son tableau de bord
       Quand je clique sur "Annonces"
       Et je clique sur "Ajouter une annonce"

@@ -16,6 +16,7 @@ export class Config
     domaineFrontend: string;
     utiliserMongoStorePourLaSession: boolean;
     motDePasseAccesRestreint? : string;
+    testControllerActif = false;
 }
 
 class configSmtp

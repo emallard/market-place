@@ -7,6 +7,7 @@ import { Config } from "../config";
 import { TokenMotDePasse } from "../_model/TokenMotDePasse";
 import { Reference } from "../_model/Reference";
 import { Annonce } from "../_model/Annonce";
+import { DataCommune } from "../_model/DataCommune";
 
 export class Persistance {
 
@@ -48,8 +49,13 @@ export class Persistance {
     {
         return Persistance.singleton()._mongodb.collection('emails');
     }
+    
+    static communes():mongodb.Collection<DataCommune>
+    {
+        return Persistance.singleton()._mongodb.collection('communes');
+    }
 
-     static tokensMotDePasse():mongodb.Collection<TokenMotDePasse>
+    static tokensMotDePasse():mongodb.Collection<TokenMotDePasse>
     {
         return Persistance.singleton()._mongodb.collection('tokensMotDePasse');
     }
@@ -75,6 +81,7 @@ export class Persistance {
     configure()
     {
         Persistance.annonces().createIndex({titreReference:"text"});
+        Persistance.communes().createIndex({coordonnees : "2dsphere" } );
     }
 
     collection<T>(type:{new():T}) : mongodb.Collection<T>

@@ -39,8 +39,8 @@
         <div class="col-md-12">
           <div class="form-group">
               <label for="reference">reference</label>
-              <select class="form-control" name="reference" placeholder="reference" *ngFor="let r of references" [(ngModel)]="idReference.value">
-                <option value="{{ r._id }}">{{r.titre}}</option>
+              <select class="form-control" name="reference" placeholder="reference" [(ngModel)]="idReference.value">
+                <option *ngFor="let r of references" value="{{ r._id }}">{{r.titre}}</option>
               </select>
           </div>
         </div>

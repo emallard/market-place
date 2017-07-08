@@ -13,6 +13,7 @@ import { Email } from "../_api/Email";
 import { AdminController } from "./AdminController";
 import { Utilisateur } from "../_model/Utilisateur";
 import { Reference } from "../_model/Reference";
+import { Config } from "../config";
 
 
 export class TestController
@@ -21,6 +22,9 @@ export class TestController
     
     async donneesVides() : Promise<void>
     {
+        if (!Config.singleton().testControllerActif)
+            throw Error("TestController inactif")
+
         await Persistance.drop();
 
         var utilisateur = new Utilisateur();
@@ -34,6 +38,9 @@ export class TestController
 
     async impersonate(impersonation:Impersonation) : Promise<void>
     {
+        if (!Config.singleton().testControllerActif)
+            throw Error("TestController inactif")
+
         var utilisateurs = await Persistance.utilisateurs().find({email: impersonation.email}, { _id: 1}).toArray();
         if (utilisateurs.length == 0)
             throw "Pas d'utilisateur trouvé pour cet email";
@@ -42,6 +49,9 @@ export class TestController
 
     async emailsEnvoyes() : Promise<Email[]>
     {
+        if (!Config.singleton().testControllerActif)
+            throw Error("TestController inactif")
+            
         return await Persistance.emails().find().toArray();
     }
 
@@ -52,6 +62,9 @@ export class TestController
 
     async seConnecter(email:string) : Promise<void>
     {
+        if (!Config.singleton().testControllerActif)
+            throw Error("TestController inactif")
+
         var utilisateurs = await Persistance.utilisateurs().find({email: email}, { _id: 1}).toArray();
         if (utilisateurs.length == 0)
             throw "Pas d'utilisateur trouvé pour cet email";
@@ -60,6 +73,9 @@ export class TestController
 
     async seDeconnecter(email:string) : Promise<void>
     {
+        if (!Config.singleton().testControllerActif)
+            throw Error("TestController inactif")
+            
         this.session.setUserId(null);
     }
 

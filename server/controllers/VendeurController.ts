@@ -8,7 +8,6 @@ import { Persistance } from "../db/Persistance";
 import { Utilisateur } from "../_model/Utilisateur";
 import { ObjectID } from "mongodb";
 import { UtilisateurConnecte } from "../UtilisateurConnecte";
-import { RechercheProduit } from "../_api/RechercheProduit";
 import { Annonce } from "../_model/Annonce";
 import { AjoutAnnonce } from "../_api/AjoutAnnonce";
 import { Reference } from "../_model/Reference";

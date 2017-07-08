@@ -7,4 +7,5 @@ export = function (c: Config)
     c.domaineFrontend = "http://localhost:4200";
     c.utiliserMongoStorePourLaSession = true;
     c.motDePasseAccesRestreint = null;//'azerty';
+    c.testControllerActif = true;
 }
