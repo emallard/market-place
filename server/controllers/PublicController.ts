@@ -12,6 +12,7 @@ import { Utilisateur } from "../_model/Utilisateur";
 import { ObjectID } from "mongodb";
 import { UtilisateurConnecte } from "../UtilisateurConnecte";
 import { Annonce } from "../_model/Annonce";
+import { DataCommune } from "../_model/DataCommune";
 
 export class PublicController
 {
@@ -29,5 +30,11 @@ export class PublicController
         //await Persistance.annonces().find({$text:{$search:recherche.reference}}).toArray();
         await Persistance.annonces().find(requete).toArray();
         return annonces;
+    }
+
+    async autocompletionCommune(recherche:RechercheAnnonce) : Promise<string[]>
+    {
+        var communes = await Persistance.communes().find({'nom_commune': {$regex : recherche.lieu}}, {nom_commune:1, codes_postaux:1}).limit(10).toArray();
+        return communes.map(c => c.nom_commune + ' (' + c.codes_postaux + ')');
     }
 }

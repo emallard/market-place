@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { PublicController, InformationUtilisateur, UserController, RechercheAnnonce, ApiProduit, Annonce } from "app/_api/api";
 import { FormInput } from "app/_core/forms";
+import { CompleterService, CompleterData } from 'ng2-completer';
+import { CommuneCompleterData } from "app/_core/CommuneCompleterData";
+
 declare var $;
 
 @Component({
@@ -19,9 +22,13 @@ export class AccueilComponent implements OnInit {
   
   annonces: Annonce[] = [];
   
+  private customData:CommuneCompleterData; 
+
   constructor(
     private userController:UserController,
-    private publicController:PublicController) { }
+    private publicController:PublicController) { 
+      this.customData = new CommuneCompleterData(publicController);
+    }
 
   async ngOnInit() {
 
@@ -41,5 +48,6 @@ export class AccueilComponent implements OnInit {
     this.annonces = await this.publicController.rechercherAnnonces(recherche);
     console.log(this.annonces);
   }
+
 
 }

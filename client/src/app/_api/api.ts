@@ -89,6 +89,15 @@ export class Annonce{
 }
 
 @Injectable()
+export class DataCommune{ 
+    code_insee:string;
+    nom_département:string;
+    nom_commune:string;
+    codes_postaux:string;
+    coordonnees:{ type: "Point"; coordinates: number[]; };
+}
+
+@Injectable()
 export class RechercheEmailsEnvoyesA{ 
     aPartirDe:Date;
     jusquA:Date;
@@ -137,6 +146,7 @@ export class InformationUtilisateur{
 @Injectable()
 export class PublicController{ 
     rechercherAnnonces(recherche:RechercheAnnonce)  : Promise<Annonce[]>{    return Api.appeler("PublicController/rechercherAnnonces",recherche); }
+    autocompletionCommune(recherche:RechercheAnnonce)  : Promise<string[]>{    return Api.appeler("PublicController/autocompletionCommune",recherche); }
 }
 
 @Injectable()

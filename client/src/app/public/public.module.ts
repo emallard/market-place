@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule }   from '@angular/forms';
 import { RouterModule }   from '@angular/router';
-
+import { Ng2CompleterModule } from "ng2-completer";
 import { RechercheProduitsComponent } from "app/public/recherche-produits/recherche-produits.component";
 import { DevenirVendeurComponent } from './devenir-vendeur/devenir-vendeur.component';
 import { SeConnecterComponent } from './se-connecter/se-connecter.component';
@@ -16,6 +16,7 @@ import { InscriptionComponent } from './inscription/inscription.component';
   imports: [
     CommonModule,
     FormsModule,
+    Ng2CompleterModule,
     RouterModule.forRoot([
       {path: 'landing', component:LandingComponent},
       {path: 'devenir-vendeur', component:DevenirVendeurComponent},

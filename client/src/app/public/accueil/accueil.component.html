@@ -52,7 +52,10 @@
         <form class="form-inline" style="text-align:center" >
             <div class="form-group" style="text-align:left;">
                 <label for="lieu" style=margin-left:30px;>Lieu</label><br/>
+                <!--
                 <input type="text" class="form-control" name="lieu" placeholder="lieu" [(ngModel)]="lieu.value" />
+                -->
+                <ng2-completer [(ngModel)]="lieu.value" [inputClass]="'form-control'" placeholder= "lieu" name="lieu" [datasource]="customData" [minSearchLength]="2"></ng2-completer>
             </div>
 
             <div class="form-group" style="text-align:left">
@@ -70,6 +73,8 @@
                 <br/>
                 <button (click)="rechercher()" class="btn btn-primary" >Rechercher</button>
             </div>
+
+            
         </form>
     </div>
 

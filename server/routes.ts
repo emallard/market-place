@@ -81,6 +81,20 @@ res.send(JSON.stringify(retour));
 });
 
 
+router.post("/PublicController/autocompletionCommune", async function (req: express.Request, res: express.Response, next: express.NextFunction)
+{ var c = new PublicController();
+var session = new Session();
+session.req = req;
+c['session'] = session
+var utilisateurConnecte = new UtilisateurConnecte();
+if (req.session.userId == null) utilisateurConnecte.id = null;
+else utilisateurConnecte.id = new ObjectID(req.session.userId)
+c['utilisateurConnecte'] = utilisateurConnecte;
+var retour = await c.autocompletionCommune(<any> req.body);
+res.send(JSON.stringify(retour));
+});
+
+
 import {UserController} from "./controllers/UserController"
 
 router.post("/UserController/inscrireVendeur", async function (req: express.Request, res: express.Response, next: express.NextFunction)

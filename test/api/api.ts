@@ -79,6 +79,14 @@ export class Annonce{
     titreReference:string;
 }
 
+export class DataCommune{ 
+    code_insee:string;
+    nom_département:string;
+    nom_commune:string;
+    codes_postaux:string;
+    coordonnees:{ type: "Point"; coordinates: number[]; };
+}
+
 export class RechercheEmailsEnvoyesA{ 
     aPartirDe:Date;
     jusquA:Date;
@@ -121,6 +129,7 @@ export class InformationUtilisateur{
 
 export class PublicController{ 
     rechercherAnnonces(recherche:RechercheAnnonce)  : Promise<Annonce[]>{    return ApiCall.callApi("PublicController/rechercherAnnonces",recherche); }
+    autocompletionCommune(recherche:RechercheAnnonce)  : Promise<string[]>{    return ApiCall.callApi("PublicController/autocompletionCommune",recherche); }
 }
 
 export class Connexion{ 
