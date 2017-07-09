@@ -136,6 +136,7 @@ export class AdminController{
     listeVendeurs()  : Promise<Utilisateur[]>{    return Api.appeler("AdminController/listeVendeurs",{}); }
     listeEmails()  : Promise<Email[]>{    return Api.appeler("AdminController/listeEmails",{}); }
     listeLogRecherches()  : Promise<LogRecherche[]>{    return Api.appeler("AdminController/listeLogRecherches",{}); }
+    mettreAJourCommunes(csv:Csv)  : Promise<string>{    return Api.appeler("AdminController/mettreAJourCommunes",csv); }
 }
 
 @Injectable()
@@ -163,8 +164,15 @@ export class InformationUtilisateur{
 }
 
 @Injectable()
+export class UrlDto{ 
+    url:string;
+}
+
+@Injectable()
 export class PublicController{ 
     rechercherAnnonces(recherche:RechercheAnnonce)  : Promise<Annonce[]>{    return Api.appeler("PublicController/rechercherAnnonces",recherche); }
+    rechercherAnnoncesParUrl(url:UrlDto)  : Promise<Annonce[]>{    return Api.appeler("PublicController/rechercherAnnoncesParUrl",url); }
+    obtenirUrlDeRecherche(recherche:RechercheAnnonce)  : Promise<UrlDto>{    return Api.appeler("PublicController/obtenirUrlDeRecherche",recherche); }
     autocompletionCommune(recherche:RechercheAnnonce)  : Promise<string[]>{    return Api.appeler("PublicController/autocompletionCommune",recherche); }
 }
 

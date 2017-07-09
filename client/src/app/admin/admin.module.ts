@@ -9,6 +9,7 @@ import { ReferencesComponent } from './references/references.component';
 import { MessagesComponent } from './messages/messages.component';
 import { RecherchesComponent } from './recherches/recherches.component';
 import { AdminController } from "app/_api/api";
+import { CommunesComponent } from './communes/communes.component';
 
 @NgModule({
   imports: [
@@ -22,10 +23,11 @@ import { AdminController } from "app/_api/api";
                 { path: 'recherches',  component: RecherchesComponent },
                 { path: 'references',  component: ReferencesComponent },
                 { path: 'vendeurs',  component: VendeursComponent },
+                { path: 'communes',  component: CommunesComponent },
             ]}
     ])
   ],
-  declarations: [TableauDeBordAdminComponent, VendeursComponent, AnnoncesComponent, ReferencesComponent, MessagesComponent, RecherchesComponent],
+  declarations: [TableauDeBordAdminComponent, VendeursComponent, AnnoncesComponent, ReferencesComponent, MessagesComponent, RecherchesComponent, CommunesComponent],
   providers: [AdminController]
 })
 export class AdminModule { }

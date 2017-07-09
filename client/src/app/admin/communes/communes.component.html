@@ -1,0 +1,19 @@
+
+
+Télcharger le fichier depuis:<br/>
+<a href="https://www.data.gouv.fr/fr/datasets/listes-des-communes-geolocalisees-par-regions-departements-circonscriptions-nd/">
+https://www.data.gouv.fr/fr/datasets/listes-des-communes-geolocalisees-par-regions-departements-circonscriptions-nd/
+</a>
+<br/>
+<small>
+(Pour info, mais non utilisé, il existe aussi: https://www.data.gouv.fr/fr/datasets/base-officielle-des-codes-postaux/)
+</small>
+<br/>
+<br/>
+Copiez-coller ci dessous le fichier décompressé : <br/>
+ex: eucircos_regions_departements_circonscriptions_communes_gps.csv<br/>
+<textarea cols="50" rows="10" [(ngModel)]="csv">
+
+</textarea>
+<br/>
+<button class="btn btn-primary" (click)="mettreAJourCommunes()">Ajouter</button>

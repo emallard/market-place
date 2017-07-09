@@ -11,6 +11,7 @@ import { Annonce } from "../_model/Annonce";
 import { RechercheAnnonce } from "../_api/RechercheAnnonce";
 import { LogRecherche } from "../_model/LogRecherche";
 import { Csv } from "../_api/Csv";
+import { DataCommune } from "../_model/DataCommune";
 
 
 
@@ -115,5 +116,64 @@ export class AdminController
             throw Error("Forbidden");
 
         return await Persistance.logRecherches().find().toArray();
+    }
+
+    async mettreAJourCommunes(csv:Csv) : Promise<string>
+    {
+        if ((await this.utilisateurConnecte.utilisateur()).estUnAdmin != true)
+            throw Error("Forbidden");
+
+        var lines = csv.contenu.split('\n');
+        
+        var champs:string[] = lines[0].split(';');
+        var index_code_insee = champs.indexOf('code_insee');
+        var index_nom_département = champs.indexOf('nom_département');
+        var index_nom_commune = champs.indexOf('nom_commune');
+        var index_codes_postaux = champs.indexOf('codes_postaux');
+        var index_latitude = champs.indexOf('latitude');
+        var index_longitude = champs.indexOf('longitude');
+
+        Persistance.communes().drop();
+        
+        var enregistre = 0;
+        var rejete = 0;
+
+        for(var i=1; i<lines.length; ++i)
+        {
+            var valeurs = lines[i].split(';');
+            
+            if (valeurs.length != champs.length)
+            {
+                rejete++;
+                continue;
+            }
+
+            var dataCommune = new DataCommune();
+            dataCommune.nom_commune = valeurs[index_nom_commune];
+            dataCommune.nom_département = valeurs[index_nom_département];
+
+            dataCommune.code_insee = valeurs[index_code_insee];
+            dataCommune.nom_département = valeurs[index_nom_département];
+            dataCommune.codes_postaux = valeurs[index_codes_postaux];
+            dataCommune.nom_et_code = dataCommune.nom_commune + ' (' + dataCommune.codes_postaux + ')';
+            
+            var longitude = parseFloat(valeurs[index_longitude]);
+            var latitude = parseFloat(valeurs[index_latitude]);
+            if (isNaN(longitude) || isNaN(latitude))
+            {
+                rejete++;
+                continue;
+            }
+
+            dataCommune.coordonnees = { type: "Point", coordinates: [longitude, latitude]};
+
+            await Persistance.communes().insertOne(dataCommune);
+            enregistre++;
+        }
+    
+        Persistance.communes().createIndex({coordonnees : "2dsphere" } );
+        var message = 'Mise à jour base de données des communes : enregistrements : ' + enregistre + ' - rejets : ' + rejete;
+        console.log(message);
+        return message;
     }
 }

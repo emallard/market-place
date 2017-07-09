@@ -135,6 +135,20 @@ res.send(JSON.stringify(retour));
 });
 
 
+router.post("/AdminController/mettreAJourCommunes", async function (req: express.Request, res: express.Response, next: express.NextFunction)
+{ var c = new AdminController();
+var session = new Session();
+session.req = req;
+c['session'] = session
+var utilisateurConnecte = new UtilisateurConnecte();
+if (req.session.userId == null) utilisateurConnecte.id = null;
+else utilisateurConnecte.id = new ObjectID(req.session.userId)
+c['utilisateurConnecte'] = utilisateurConnecte;
+var retour = await c.mettreAJourCommunes(<any> req.body);
+res.send(JSON.stringify(retour));
+});
+
+
 import {PublicController} from "./controllers/PublicController"
 
 router.post("/PublicController/rechercherAnnonces", async function (req: express.Request, res: express.Response, next: express.NextFunction)
@@ -147,6 +161,34 @@ if (req.session.userId == null) utilisateurConnecte.id = null;
 else utilisateurConnecte.id = new ObjectID(req.session.userId)
 c['utilisateurConnecte'] = utilisateurConnecte;
 var retour = await c.rechercherAnnonces(<any> req.body);
+res.send(JSON.stringify(retour));
+});
+
+
+router.post("/PublicController/rechercherAnnoncesParUrl", async function (req: express.Request, res: express.Response, next: express.NextFunction)
+{ var c = new PublicController();
+var session = new Session();
+session.req = req;
+c['session'] = session
+var utilisateurConnecte = new UtilisateurConnecte();
+if (req.session.userId == null) utilisateurConnecte.id = null;
+else utilisateurConnecte.id = new ObjectID(req.session.userId)
+c['utilisateurConnecte'] = utilisateurConnecte;
+var retour = await c.rechercherAnnoncesParUrl(<any> req.body);
+res.send(JSON.stringify(retour));
+});
+
+
+router.post("/PublicController/obtenirUrlDeRecherche", async function (req: express.Request, res: express.Response, next: express.NextFunction)
+{ var c = new PublicController();
+var session = new Session();
+session.req = req;
+c['session'] = session
+var utilisateurConnecte = new UtilisateurConnecte();
+if (req.session.userId == null) utilisateurConnecte.id = null;
+else utilisateurConnecte.id = new ObjectID(req.session.userId)
+c['utilisateurConnecte'] = utilisateurConnecte;
+var retour = await c.obtenirUrlDeRecherche(<any> req.body);
 res.send(JSON.stringify(retour));
 });
 

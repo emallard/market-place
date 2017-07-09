@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { VendeurController, Annonce, Reference, AjoutAnnonce } from "app/_api/api";
+import { VendeurController, Annonce, Reference, AjoutAnnonce, PublicController } from "app/_api/api";
 import { FormInput } from "app/_core/forms";
 import { Router } from "@angular/router";
+import { CommuneCompleterData } from "app/_core/CommuneCompleterData";
 declare var $;
 
 @Component({
@@ -20,13 +21,17 @@ export class AjouterProduitComponent implements OnInit {
 
   loading = false;
   
+  customData:CommuneCompleterData; 
+
   constructor(
+    private router: Router,
     private vendeurController: VendeurController,
-    private router: Router) { }
+    private publicController:PublicController
+    ) { 
+      this.customData = new CommuneCompleterData(publicController);
+    }
 
   ngOnInit() {
-
-
     this.vendeurController.listerReferences().then(result => this.references = result);
   }
   

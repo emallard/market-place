@@ -82,13 +82,25 @@ export class Persistance {
         var url = Config.singleton().mongo_url;
         this._mongodb = await MongoClient.connect(url);
         console.log('mongodb connected');
-        this.configure();
+        await this.configure();
+        console.log('mongodb configured');
     }
 
-    configure()
+    async configure()
     {
         Persistance.annonces().createIndex({titreReference:"text"});
         Persistance.communes().createIndex({coordonnees : "2dsphere" } );
+        var admin = await Persistance.utilisateurs().findOne({estUnAdmin:true});
+        if (admin == null)
+        {
+            console.log('creation du compte admin');
+            var utilisateur = new Utilisateur();
+            utilisateur.email = 'admin@example.com'
+            utilisateur.password = 'admin'; 
+            utilisateur.estUnAdmin = true;
+            utilisateur.dateInscription = new Date();
+            var insertedUser = await Persistance.utilisateurs().insertOne(utilisateur);
+        }
     }
 
     collection<T>(type:{new():T}) : mongodb.Collection<T>

@@ -3,6 +3,7 @@ import { PublicController, InformationUtilisateur, UserController, RechercheAnno
 import { FormInput } from "app/_core/forms";
 import { CompleterService, CompleterData } from 'ng2-completer';
 import { CommuneCompleterData } from "app/_core/CommuneCompleterData";
+import { Router, NavigationExtras } from "@angular/router";
 
 declare var $;
 
@@ -22,9 +23,10 @@ export class AccueilComponent implements OnInit {
   
   annonces: Annonce[] = [];
   
-  private customData:CommuneCompleterData; 
+  customData:CommuneCompleterData; 
 
   constructor(
+    private router: Router,
     private userController:UserController,
     private publicController:PublicController) { 
       this.customData = new CommuneCompleterData(publicController);
@@ -45,8 +47,36 @@ export class AccueilComponent implements OnInit {
     recherche.date = $('.datetimepicker4').data("DateTimePicker").date();
     recherche.reference = this.reference.value;
 
+    var d = $('.datetimepicker4').data("DateTimePicker").date();
+
+
+
+    //var urlDto = await this.publicController.obtenirUrlDeRecherche(recherche);
+
+    this.router.navigate(['/recherche', recherche]);
+
+    /*
+    var querystring = '?' + 'lieu='+this.lieu.value+'coord=' + longitude + '|' + latitude
+    + '&produit=' + this.reference.value
+    + '&date=' + .
+
+    'fn=Les+Sables-d'Olonne&fc=46.492958|-1.795493&fcc=FR&fp=0&tn=La+Rochelle&tc=46.160329|-1.151139&tcc=FR&tp=0&db=21%2F07%2F2017
+    this.lieu.value.replace(/ /gi, "-");
+    this.lieu.value.replace(/'/gi, "-");
+    */
+    
+
+/*
+    this.router.navigate([redirect]);
+
+    var recherche = new RechercheAnnonce();
+    recherche.lieu = this.lieu.value;
+    recherche.date = $('.datetimepicker4').data("DateTimePicker").date();
+    recherche.reference = this.reference.value;
+
     this.annonces = await this.publicController.rechercherAnnonces(recherche);
     console.log(this.annonces);
+  */
   }
 
 

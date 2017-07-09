@@ -14,6 +14,7 @@ import { UtilisateurConnecte } from "../UtilisateurConnecte";
 import { Annonce } from "../_model/Annonce";
 import { DataCommune } from "../_model/DataCommune";
 import { LogRecherche } from "../_model/LogRecherche";
+import { UrlDto } from "../_api/UrlDto";
 
 export class PublicController
 {
@@ -42,9 +43,22 @@ export class PublicController
         return annonces;
     }
 
+    async rechercherAnnoncesParUrl(url:UrlDto) : Promise<Annonce[]>
+    {
+        var recherche:RechercheAnnonce = JSON.parse(decodeURI(url.url));
+        return await this.rechercherAnnonces(recherche);
+    }
+
+    async obtenirUrlDeRecherche(recherche:RechercheAnnonce): Promise<UrlDto>
+    {
+        return {url: encodeURI(JSON.stringify(recherche))};
+    }
+
     async autocompletionCommune(recherche:RechercheAnnonce) : Promise<string[]>
     {
-        var communes = await Persistance.communes().find({'nom_commune': {$regex : recherche.lieu}}, {nom_commune:1, codes_postaux:1}).limit(10).toArray();
-        return communes.map(c => c.nom_commune + ' (' + c.codes_postaux + ')');
+        var communes = await Persistance.communes().find({'nom_et_code': {$regex : recherche.lieu, $options : 'i'}}, {nom_et_code:1}).limit(20).sort({code_postaux:1}).toArray();
+        var distinctes = Array.from(new Set(communes.map(c => c.nom_et_code)));
+        return distinctes.slice(0, 10);
+
     }
 }

@@ -25,7 +25,8 @@
         <div class="col-md-12">
           <div class="form-group">
               <label for="lieu">lieu</label>
-              <input type="text" class="form-control" name="lieu" [(ngModel)]="lieu.value" />
+              <ng2-completer [(ngModel)]="lieu.value" [inputClass]="'form-control'" placeholder= "lieu" name="lieu" [datasource]="customData" [minSearchLength]="2"></ng2-completer>
+              <!--<input type="text" class="form-control" name="lieu" [(ngModel)]="lieu.value" />-->
           </div>
         </div>
 

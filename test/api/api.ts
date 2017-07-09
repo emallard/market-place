@@ -121,6 +121,7 @@ export class AdminController{
     listeVendeurs()  : Promise<Utilisateur[]>{    return ApiCall.callApi("AdminController/listeVendeurs",{}); }
     listeEmails()  : Promise<Email[]>{    return ApiCall.callApi("AdminController/listeEmails",{}); }
     listeLogRecherches()  : Promise<LogRecherche[]>{    return ApiCall.callApi("AdminController/listeLogRecherches",{}); }
+    mettreAJourCommunes(csv:Csv)  : Promise<string>{    return ApiCall.callApi("AdminController/mettreAJourCommunes",csv); }
 }
 
 export class ApiProduit{ 
@@ -144,8 +145,14 @@ export class InformationUtilisateur{
     profil:ProfilUtilisateur;
 }
 
+export class UrlDto{ 
+    url:string;
+}
+
 export class PublicController{ 
     rechercherAnnonces(recherche:RechercheAnnonce)  : Promise<Annonce[]>{    return ApiCall.callApi("PublicController/rechercherAnnonces",recherche); }
+    rechercherAnnoncesParUrl(url:UrlDto)  : Promise<Annonce[]>{    return ApiCall.callApi("PublicController/rechercherAnnoncesParUrl",url); }
+    obtenirUrlDeRecherche(recherche:RechercheAnnonce)  : Promise<UrlDto>{    return ApiCall.callApi("PublicController/obtenirUrlDeRecherche",recherche); }
     autocompletionCommune(recherche:RechercheAnnonce)  : Promise<string[]>{    return ApiCall.callApi("PublicController/autocompletionCommune",recherche); }
 }
 

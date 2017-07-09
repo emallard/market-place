@@ -63,7 +63,7 @@ export = app;
 */
 
 
-    app.use(bodyParser.json({limit: 2000000, type:(req)=>true}));
+    app.use(bodyParser.json({limit: 10000000, type:(req)=>true}));
     //app.use(bodyParser.urlencoded({ extended: false }));
 
     app.use("/", require("./AccesRestreint"));

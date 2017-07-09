@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule }   from '@angular/router';
 import { FormsModule }   from '@angular/forms';
+import { Ng2CompleterModule } from "ng2-completer";
 import { TableauDeBordComponent } from './tableau-de-bord/tableau-de-bord.component';
 import { VendeurController } from "app/_api/api";
 import { AjouterProduitComponent } from './ajouter-produit/ajouter-produit.component';
@@ -13,6 +14,7 @@ import { AnnoncesComponent } from './annonces/annonces.component';
   imports: [
     CommonModule,
     FormsModule,
+    Ng2CompleterModule,
     RouterModule.forRoot([
       {path: 'vendeur', component:TableauDeBordComponent,
         children: [
