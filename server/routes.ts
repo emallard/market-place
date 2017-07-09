@@ -51,6 +51,20 @@ res.send(JSON.stringify(retour));
 });
 
 
+router.post("/AdminController/ajouterListeReferencesEnCsv", async function (req: express.Request, res: express.Response, next: express.NextFunction)
+{ var c = new AdminController();
+var session = new Session();
+session.req = req;
+c['session'] = session
+var utilisateurConnecte = new UtilisateurConnecte();
+if (req.session.userId == null) utilisateurConnecte.id = null;
+else utilisateurConnecte.id = new ObjectID(req.session.userId)
+c['utilisateurConnecte'] = utilisateurConnecte;
+var retour = await c.ajouterListeReferencesEnCsv(<any> req.body);
+res.send(JSON.stringify(retour));
+});
+
+
 router.post("/AdminController/listeReferences", async function (req: express.Request, res: express.Response, next: express.NextFunction)
 { var c = new AdminController();
 var session = new Session();
@@ -61,6 +75,62 @@ if (req.session.userId == null) utilisateurConnecte.id = null;
 else utilisateurConnecte.id = new ObjectID(req.session.userId)
 c['utilisateurConnecte'] = utilisateurConnecte;
 var retour = await c.listeReferences();
+res.send(JSON.stringify(retour));
+});
+
+
+router.post("/AdminController/listeAnnonces", async function (req: express.Request, res: express.Response, next: express.NextFunction)
+{ var c = new AdminController();
+var session = new Session();
+session.req = req;
+c['session'] = session
+var utilisateurConnecte = new UtilisateurConnecte();
+if (req.session.userId == null) utilisateurConnecte.id = null;
+else utilisateurConnecte.id = new ObjectID(req.session.userId)
+c['utilisateurConnecte'] = utilisateurConnecte;
+var retour = await c.listeAnnonces();
+res.send(JSON.stringify(retour));
+});
+
+
+router.post("/AdminController/listeVendeurs", async function (req: express.Request, res: express.Response, next: express.NextFunction)
+{ var c = new AdminController();
+var session = new Session();
+session.req = req;
+c['session'] = session
+var utilisateurConnecte = new UtilisateurConnecte();
+if (req.session.userId == null) utilisateurConnecte.id = null;
+else utilisateurConnecte.id = new ObjectID(req.session.userId)
+c['utilisateurConnecte'] = utilisateurConnecte;
+var retour = await c.listeVendeurs();
+res.send(JSON.stringify(retour));
+});
+
+
+router.post("/AdminController/listeEmails", async function (req: express.Request, res: express.Response, next: express.NextFunction)
+{ var c = new AdminController();
+var session = new Session();
+session.req = req;
+c['session'] = session
+var utilisateurConnecte = new UtilisateurConnecte();
+if (req.session.userId == null) utilisateurConnecte.id = null;
+else utilisateurConnecte.id = new ObjectID(req.session.userId)
+c['utilisateurConnecte'] = utilisateurConnecte;
+var retour = await c.listeEmails();
+res.send(JSON.stringify(retour));
+});
+
+
+router.post("/AdminController/listeLogRecherches", async function (req: express.Request, res: express.Response, next: express.NextFunction)
+{ var c = new AdminController();
+var session = new Session();
+session.req = req;
+c['session'] = session
+var utilisateurConnecte = new UtilisateurConnecte();
+if (req.session.userId == null) utilisateurConnecte.id = null;
+else utilisateurConnecte.id = new ObjectID(req.session.userId)
+c['utilisateurConnecte'] = utilisateurConnecte;
+var retour = await c.listeLogRecherches();
 res.send(JSON.stringify(retour));
 });
 

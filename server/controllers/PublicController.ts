@@ -13,6 +13,7 @@ import { ObjectID } from "mongodb";
 import { UtilisateurConnecte } from "../UtilisateurConnecte";
 import { Annonce } from "../_model/Annonce";
 import { DataCommune } from "../_model/DataCommune";
+import { LogRecherche } from "../_model/LogRecherche";
 
 export class PublicController
 {
@@ -26,9 +27,18 @@ export class PublicController
         if (recherche.reference != null && recherche.reference != '')
             requete.$text = {$search:recherche.reference};
 
-        var annonces = 
+        // insertion d'un log:
+        var log = new LogRecherche();
+        log.lieu = recherche.lieu;
+        log.reference = recherche.reference;
+        log.date = recherche.date;
+        log.dateInsertion = new Date();
+        log.idUtilisateur = this.utilisateurConnecte.id;
+        await Persistance.logRecherches().insertOne(log);
+
+        var annonces = await Persistance.annonces().find(requete).toArray();
         //await Persistance.annonces().find({$text:{$search:recherche.reference}}).toArray();
-        await Persistance.annonces().find(requete).toArray();
+        
         return annonces;
     }
 

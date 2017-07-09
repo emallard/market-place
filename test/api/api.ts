@@ -87,23 +87,40 @@ export class DataCommune{
     coordonnees:{ type: "Point"; coordinates: number[]; };
 }
 
+export class RechercheAnnonce{ 
+    lieu:string;
+    date:Date;
+    reference:string;
+}
+
+export class LogRecherche{ 
+    lieu:string;
+    date:Date;
+    reference:string;
+    dateInsertion:Date;
+    idUtilisateur:ObjectID;
+}
+
 export class RechercheEmailsEnvoyesA{ 
     aPartirDe:Date;
     jusquA:Date;
     destinataire:string;
 }
 
+export class Csv{ 
+    contenu:string;
+}
+
 export class AdminController{ 
     rechercherEmailsEnvoyes(recherche:RechercheEmailsEnvoyesA)  : Promise<Email[]>{    return ApiCall.callApi("AdminController/rechercherEmailsEnvoyes",recherche); }
     rechercherVendeurs()  : Promise<Utilisateur[]>{    return ApiCall.callApi("AdminController/rechercherVendeurs",{}); }
     ajouterReference(reference:Reference)  : Promise<void>{    return ApiCall.callApi("AdminController/ajouterReference",reference); }
+    ajouterListeReferencesEnCsv(csv:Csv)  : Promise<void>{    return ApiCall.callApi("AdminController/ajouterListeReferencesEnCsv",csv); }
     listeReferences()  : Promise<Reference[]>{    return ApiCall.callApi("AdminController/listeReferences",{}); }
-}
-
-export class RechercheAnnonce{ 
-    lieu:string;
-    date:Date;
-    reference:string;
+    listeAnnonces()  : Promise<Annonce[]>{    return ApiCall.callApi("AdminController/listeAnnonces",{}); }
+    listeVendeurs()  : Promise<Utilisateur[]>{    return ApiCall.callApi("AdminController/listeVendeurs",{}); }
+    listeEmails()  : Promise<Email[]>{    return ApiCall.callApi("AdminController/listeEmails",{}); }
+    listeLogRecherches()  : Promise<LogRecherche[]>{    return ApiCall.callApi("AdminController/listeLogRecherches",{}); }
 }
 
 export class ApiProduit{ 

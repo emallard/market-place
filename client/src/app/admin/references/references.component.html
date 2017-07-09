@@ -1,0 +1,14 @@
+
+
+
+<button class="btn btn-primary" (click)="listeReferences()">Voir la liste des références</button><br/>
+<table id="datatable"></table>
+
+<br/>
+<br/>
+Ajouter un lot de références délimitées par ';'<br/>
+<textarea cols="50" rows="10" [(ngModel)]="referencesEnCsv">
+
+</textarea>
+<br/>
+<button class="btn btn-primary" (click)="ajouterReferences()">Ajouter</button>

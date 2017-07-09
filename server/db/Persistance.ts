@@ -8,6 +8,8 @@ import { TokenMotDePasse } from "../_model/TokenMotDePasse";
 import { Reference } from "../_model/Reference";
 import { Annonce } from "../_model/Annonce";
 import { DataCommune } from "../_model/DataCommune";
+import { RechercheAnnonce } from "../_api/RechercheAnnonce";
+import { LogRecherche } from "../_model/LogRecherche";
 
 export class Persistance {
 
@@ -53,6 +55,11 @@ export class Persistance {
     static communes():mongodb.Collection<DataCommune>
     {
         return Persistance.singleton()._mongodb.collection('communes');
+    }
+
+    static logRecherches():mongodb.Collection<LogRecherche>
+    {
+        return Persistance.singleton()._mongodb.collection('logRecherches');
     }
 
     static tokensMotDePasse():mongodb.Collection<TokenMotDePasse>

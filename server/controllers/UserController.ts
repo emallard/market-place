@@ -45,6 +45,16 @@ export class UserController
         
         var insertedUser = await Persistance.utilisateurs().insertOne(utilisateur);
         this.session.setUserId(insertedUser.insertedId.toHexString());
+
+        var message = new Email();
+        message.to = utilisateur.email;
+        message.from = 'no-reply@example.com';
+        message.subject = 'Bienvenue !';
+
+        var lien = Config.singleton().domaineFrontend + '/vendeur';
+        message.html = 'Vous venez de vous enregistrer comme vendeur, rendez-vous sur votre espace personnel : <br/> <a href="'+ lien +'">' + lien + '</a>'
+        await EnvoiEmail.singleton().envoyerEmail(message)
+
     }
 
     async informationUtilisateurConnecte() : Promise<InformationUtilisateur>

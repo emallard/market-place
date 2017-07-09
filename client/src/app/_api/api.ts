@@ -98,6 +98,22 @@ export class DataCommune{
 }
 
 @Injectable()
+export class RechercheAnnonce{ 
+    lieu:string;
+    date:Date;
+    reference:string;
+}
+
+@Injectable()
+export class LogRecherche{ 
+    lieu:string;
+    date:Date;
+    reference:string;
+    dateInsertion:Date;
+    idUtilisateur:ObjectID;
+}
+
+@Injectable()
 export class RechercheEmailsEnvoyesA{ 
     aPartirDe:Date;
     jusquA:Date;
@@ -105,18 +121,21 @@ export class RechercheEmailsEnvoyesA{
 }
 
 @Injectable()
+export class Csv{ 
+    contenu:string;
+}
+
+@Injectable()
 export class AdminController{ 
     rechercherEmailsEnvoyes(recherche:RechercheEmailsEnvoyesA)  : Promise<Email[]>{    return Api.appeler("AdminController/rechercherEmailsEnvoyes",recherche); }
     rechercherVendeurs()  : Promise<Utilisateur[]>{    return Api.appeler("AdminController/rechercherVendeurs",{}); }
     ajouterReference(reference:Reference)  : Promise<void>{    return Api.appeler("AdminController/ajouterReference",reference); }
+    ajouterListeReferencesEnCsv(csv:Csv)  : Promise<void>{    return Api.appeler("AdminController/ajouterListeReferencesEnCsv",csv); }
     listeReferences()  : Promise<Reference[]>{    return Api.appeler("AdminController/listeReferences",{}); }
-}
-
-@Injectable()
-export class RechercheAnnonce{ 
-    lieu:string;
-    date:Date;
-    reference:string;
+    listeAnnonces()  : Promise<Annonce[]>{    return Api.appeler("AdminController/listeAnnonces",{}); }
+    listeVendeurs()  : Promise<Utilisateur[]>{    return Api.appeler("AdminController/listeVendeurs",{}); }
+    listeEmails()  : Promise<Email[]>{    return Api.appeler("AdminController/listeEmails",{}); }
+    listeLogRecherches()  : Promise<LogRecherche[]>{    return Api.appeler("AdminController/listeLogRecherches",{}); }
 }
 
 @Injectable()
